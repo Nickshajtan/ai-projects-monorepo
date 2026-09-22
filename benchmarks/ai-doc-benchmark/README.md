@@ -16,7 +16,7 @@ benchmarks/
 The current implementation covers the definition layer from
 `../../ai-doc-benchmark-definition-v0.1.md`:
 
-- a versioned starter corpus with 16 benchmark cases;
+- a versioned starter corpus with 19 benchmark cases;
 - case metadata for categories, quality cohorts, and relevant `ai-doc` capabilities;
 - source instruction corpora, initial workspace state, tasks, and observable ground
   truth criteria;

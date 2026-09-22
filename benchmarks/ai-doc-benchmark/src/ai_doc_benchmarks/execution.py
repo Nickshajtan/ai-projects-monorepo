@@ -360,10 +360,7 @@ def _prepare_ai_doc_treatment(
         if not run_dirs:
             raise TreatmentPreparationError("ai-doc optimize produced no output run directory")
         run_dir = run_dirs[-1]
-        candidate_dirs = sorted((run_dir / "candidates").glob("*/candidate"))
-        if not candidate_dirs:
-            raise TreatmentPreparationError("ai-doc optimize produced no candidate artifact")
-        candidate = candidate_dirs[0]
+        candidate, selection_provenance = _select_ai_doc_result(run_dir)
         files: dict[str, str] = {}
         for path in source_files:
             candidate_file = candidate / path
@@ -386,9 +383,61 @@ def _prepare_ai_doc_treatment(
             "artifact_source": "ai-doc-cli",
             "ai_doc_root": str(root),
             "ai_doc_commit": commit,
-            "api_path": "python -m ai_doc optimize",
+            "invocation_path": "python -m ai_doc optimize",
+            **selection_provenance,
         },
     )
+
+
+def _select_ai_doc_result(run_dir: Path) -> tuple[Path, dict[str, Any]]:
+    run_json = run_dir / "run.json"
+    if not run_json.exists():
+        raise TreatmentPreparationError("ai-doc optimize did not write run.json")
+    run = json.loads(run_json.read_text(encoding="utf-8"))
+    recommended = run.get("recommended_candidate_id")
+
+    if isinstance(recommended, str) and recommended:
+        selected = _candidate_artifact_dir(run_dir, recommended)
+        if not selected.exists():
+            raise TreatmentPreparationError(
+                f"ai-doc recommended candidate {recommended!r} has no artifact"
+            )
+        return selected, {
+            "candidate_id": recommended,
+            "selection_source": "recommended_candidate_id",
+            "selection_rule": "used ai-doc recommended candidate",
+            "recommendation_reason": run.get("recommendation_reason"),
+            "run_id": run.get("run_id"),
+        }
+
+    candidate_ids = sorted(
+        candidate["id"]
+        for candidate in run.get("candidates", [])
+        if isinstance(candidate, Mapping)
+        and isinstance(candidate.get("id"), str)
+        and candidate["id"] != run.get("baseline_candidate_id", "baseline")
+        and _candidate_artifact_dir(run_dir, candidate["id"]).exists()
+    )
+    if not candidate_ids:
+        raise TreatmentPreparationError("ai-doc optimize produced no candidate artifact")
+
+    selected_id = candidate_ids[0]
+    return _candidate_artifact_dir(run_dir, selected_id), {
+        "candidate_id": selected_id,
+        "selection_source": "deterministic-fallback",
+        "selection_rule": (
+            "ai-doc reported no recommended_candidate_id; selected lexicographically "
+            "first generated candidate id"
+        ),
+        "recommendation_reason": run.get("recommendation_reason"),
+        "run_id": run.get("run_id"),
+    }
+
+
+def _candidate_artifact_dir(run_dir: Path, candidate_id: str) -> Path:
+    if candidate_id == "baseline":
+        return run_dir / "baseline"
+    return run_dir / "candidates" / candidate_id / "candidate"
 
 
 def grade_case(worktree: Path, benchmark_case: Mapping[str, Any]) -> dict[str, Any]:

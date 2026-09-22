@@ -6,7 +6,12 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ai_doc_benchmarks.execution import ExecutionTarget, prepare_treatment, run_execution
+from ai_doc_benchmarks.execution import (
+    ExecutionTarget,
+    _select_ai_doc_result,
+    prepare_treatment,
+    run_execution,
+)
 from ai_doc_benchmarks.schema import validate_observation_record
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -117,9 +122,37 @@ class ExecutionTests(unittest.TestCase):
 
         self.assertEqual(prepared.treatment_class, "ai-doc")
         self.assertEqual(prepared.provenance["artifact_source"], "ai-doc-cli")
-        self.assertEqual(prepared.provenance["api_path"], "python -m ai_doc optimize")
+        self.assertEqual(prepared.provenance["invocation_path"], "python -m ai_doc optimize")
         self.assertRegex(prepared.provenance["ai_doc_commit"], r"^[0-9a-f]{40}$")
+        self.assertIn("candidate_id", prepared.provenance)
+        self.assertIn("selection_rule", prepared.provenance)
         self.assertIn("Make the endpoint contract return accounts", prepared.artifact)
+
+    def test_ai_doc_result_selection_uses_recommended_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            run_dir = Path(temp)
+            for candidate_id in ("C001", "C002"):
+                candidate = run_dir / "candidates" / candidate_id / "candidate"
+                candidate.mkdir(parents=True)
+                (candidate / "AGENTS.md").write_text(candidate_id, encoding="utf-8")
+            (run_dir / "run.json").write_text(
+                json.dumps(
+                    {
+                        "run_id": "run-test",
+                        "baseline_candidate_id": "baseline",
+                        "recommended_candidate_id": "C002",
+                        "recommendation_reason": "selected by ai-doc",
+                        "candidates": [{"id": "C001"}, {"id": "C002"}],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            selected, provenance = _select_ai_doc_result(run_dir)
+
+            self.assertEqual(selected, run_dir / "candidates" / "C002" / "candidate")
+            self.assertEqual(provenance["candidate_id"], "C002")
+            self.assertEqual(provenance["selection_source"], "recommended_candidate_id")
 
     def test_timeout_after_meaningful_execution_still_allows_grading(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
