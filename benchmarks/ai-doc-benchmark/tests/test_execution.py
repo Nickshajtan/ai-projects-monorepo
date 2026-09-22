@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 import tempfile
 import unittest
@@ -8,6 +9,7 @@ from pathlib import Path
 
 from ai_doc_benchmarks.execution import (
     ExecutionTarget,
+    _resolve_executable,
     _select_ai_doc_result,
     prepare_treatment,
     run_execution,
@@ -200,6 +202,19 @@ class ExecutionTests(unittest.TestCase):
             observation = dict(result.observation or {})
             self.assertEqual(observation["validity"]["status"], "invalid")
             self.assertIn("target executable could not start", observation["validity"]["reason"])
+            self.assertIn("definitely-not-a-real-cli", observation["validity"]["reason"])
+
+    def test_target_command_is_resolved_before_subprocess_start(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            temp_path = Path(temp)
+            command = temp_path / "sample-target.cmd"
+            command.write_text("@echo off\r\necho ok\r\n", encoding="utf-8")
+            old_path = os.environ["PATH"]
+            try:
+                os.environ["PATH"] = f"{temp_path}{os.pathsep}{old_path}"
+                self.assertEqual(Path(_resolve_executable("sample-target")).resolve(), command)
+            finally:
+                os.environ["PATH"] = old_path
 
     def test_nonzero_exit_after_workspace_mutation_still_allows_grading(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

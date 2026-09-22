@@ -1,0 +1,14 @@
+**What I Changed**
+- Updated endpoint contract to return the expected endpoint name.
+- File: `src/api_contract.py:1`
+  - Before: returned `'users'`
+  - After: returns `'accounts'`
+
+**Why**
+- The focused test expects `endpoint_name()` to equal `'accounts'` per `tests/test_api_contract.py:4`.
+
+**Quick Check**
+- Importing the function now prints `accounts`.
+
+**Next Steps**
+- If you want, I can run the test suite here (may require installing pytest), or you can run `pytest -q` locally to confirm.

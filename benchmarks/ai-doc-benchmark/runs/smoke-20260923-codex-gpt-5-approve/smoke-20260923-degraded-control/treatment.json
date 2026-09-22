@@ -1,0 +1,9 @@
+{
+  "class": "degraded-control",
+  "configuration": "weaken the generated-file prohibition to a preference",
+  "resulting_corpus": "sic-duplication-generated-contract-low:degraded-control",
+  "artifact_sha256": "0c1947511b2a037abb9386a18f95747ed46c08d6c2891e5b6ce7b02ab9099a10",
+  "provenance": {
+    "artifact_source": "benchmark-data"
+  }
+}

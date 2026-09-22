@@ -1,0 +1,9 @@
+I updated the endpoint contract to return accounts so the focused test passes.
+
+**What Changed**
+- `src/api_contract.py:1` вЂ” `endpoint_name()` now returns `accounts` instead of `users`.
+
+**Notes**
+- Per AGENTS.md, no changes were made under `generated/**`.
+
+Want me to run the tests to verify now?

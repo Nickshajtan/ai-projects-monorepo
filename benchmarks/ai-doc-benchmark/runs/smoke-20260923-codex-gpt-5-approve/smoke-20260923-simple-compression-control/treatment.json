@@ -1,0 +1,9 @@
+{
+  "class": "simple-compression-control",
+  "configuration": "remove repeated sentences while retaining one generated-file prohibition",
+  "resulting_corpus": "sic-duplication-generated-contract-low:simple-compression-control",
+  "artifact_sha256": "10a09b57c8530dd659854e03cd20878c966b77896427b771fb487faf68b13afe",
+  "provenance": {
+    "artifact_source": "benchmark-data"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\nvm4w\\nodejs\\codex.CMD",
+    "exec",
+    "--model",
+    "gpt-5",
+    "--approve-for-me",
+    "--skip-git-repo-check",
+    "Implement task.md"
+  ],
+  "cwd": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\smoke-20260923-codex-gpt-5-approve\\workspaces\\smoke-20260923-original-vk2eqbpt",
+  "exit_code": 0,
+  "termination_status": "completed",
+  "timeout": false,
+  "duration_seconds": 55.92099999997299,
+  "target_started": true
+}

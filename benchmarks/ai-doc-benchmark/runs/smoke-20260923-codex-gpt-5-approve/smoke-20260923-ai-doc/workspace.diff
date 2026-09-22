@@ -1,0 +1,9 @@
+diff --git a/src/api_contract.py b/src/api_contract.py
+index 78d9459..f4b5160 100644
+--- a/src/api_contract.py
++++ b/src/api_contract.py
+@@ -1,2 +1,2 @@
+ def endpoint_name():
+-    return 'users'
++    return 'accounts'
+\ No newline at end of file

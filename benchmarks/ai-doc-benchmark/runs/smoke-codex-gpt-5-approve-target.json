@@ -1,0 +1,17 @@
+{
+  "id": "codex-gpt-5-approve-smoke",
+  "command": "codex",
+  "args": [
+    "exec",
+    "--model",
+    "gpt-5",
+    "--approve-for-me",
+    "--skip-git-repo-check"
+  ],
+  "timeout_seconds": 600,
+  "model": "gpt-5",
+  "env": {
+    "CODEX_CA_CERTIFICATE": "D:\\AI\\projects\\.codex-avast-root.pem"
+  },
+  "tool_version": "codex-cli 0.155.1"
+}

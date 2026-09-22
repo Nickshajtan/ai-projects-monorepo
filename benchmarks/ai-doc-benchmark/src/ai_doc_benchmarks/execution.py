@@ -168,7 +168,8 @@ def run_execution(
         _git(["add", "."], workspace)
         _git(["commit", "-m", "case baseline"], workspace)
 
-        command = [target.command, *target.args, PROMPT]
+        resolved_command = _resolve_executable(target.command)
+        command = [resolved_command, *target.args, PROMPT]
         env = os.environ.copy()
         env.update(target.env)
 
@@ -196,7 +197,8 @@ def run_execution(
         except FileNotFoundError as exc:
             target_started = False
             validity_status = "invalid"
-            validity_reason = f"target executable could not start: {exc.filename}"
+            attempted_executable = exc.filename or command[0]
+            validity_reason = f"target executable could not start: {attempted_executable}"
             process_result = subprocess.CompletedProcess(
                 command, returncode=127, stdout="", stderr=str(exc)
             )
@@ -438,6 +440,10 @@ def _candidate_artifact_dir(run_dir: Path, candidate_id: str) -> Path:
     if candidate_id == "baseline":
         return run_dir / "baseline"
     return run_dir / "candidates" / candidate_id / "candidate"
+
+
+def _resolve_executable(command: str) -> str:
+    return shutil.which(command) or command
 
 
 def grade_case(worktree: Path, benchmark_case: Mapping[str, Any]) -> dict[str, Any]:

@@ -1,0 +1,10 @@
+IвЂ™ll update the endpoint contract so the focused test passes.
+
+**What I Changed**
+- Updated `src/api_contract.py:1` to make `endpoint_name()` return `accounts`.
+
+**Notes**
+- Left `generated/**` untouched per AGENTS.md. If any generated output still references `users`, thatвЂ™s expected and considered stale for this task.
+
+**Next Steps**
+- Do you want me to run the tests (`pytest -q`) to confirm everything passes?
