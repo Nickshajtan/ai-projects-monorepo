@@ -95,7 +95,7 @@ class ObservationSchemaTests(unittest.TestCase):
         observation = valid_observation()
         observation["validity"] = {
             "status": "invalid",
-            "reason": "execution target crashed before producing behavior",
+            "reason": "required execution metadata was corrupted after behavior was observed",
         }
         observation["behavior"]["task_success"] = True
 
