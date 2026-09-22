@@ -1,0 +1,21 @@
+{
+  "id": "gemini-3.5-flash-yolo-smoke",
+  "command": "C:\\Users\\38098\\AppData\\Roaming\\npm\\gemini.cmd",
+  "args": [
+    "--model",
+    "gemini-3.5-flash",
+    "--approval-mode",
+    "yolo",
+    "--skip-trust",
+    "--output-format",
+    "json",
+    "--prompt"
+  ],
+  "timeout_seconds": 600,
+  "model": "gemini-3.5-flash",
+  "env": {
+    "GEMINI_CLI_HOME": "D:\\AI\\projects\\.tmp-gemini-home",
+    "NODE_EXTRA_CA_CERTS": "D:\\AI\\projects\\.codex-avast-root.pem"
+  },
+  "tool_version": "gemini-cli 0.55.1"
+}

@@ -33,6 +33,7 @@ benchmark-runs/
 evidence/
 tmp/
 temp/
+.tmp-*/
 
 # Local secrets and machine-specific config
 .env
