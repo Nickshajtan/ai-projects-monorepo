@@ -28,6 +28,9 @@ The current implementation covers the definition layer from
 It does not schedule benchmark sweeps, run comparative analysis, aggregate results,
 rank treatments, or draw product conclusions.
 
+The frozen Benchmark Execution v0.1 contract is documented in
+`../../docs/benchmark-execution-v0.1-contract.md`.
+
 ## Validate
 
 ```powershell

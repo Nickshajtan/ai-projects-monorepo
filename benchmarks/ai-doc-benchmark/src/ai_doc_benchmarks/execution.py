@@ -180,6 +180,8 @@ def run_execution(
                 cwd=workspace,
                 env=env,
                 text=True,
+                encoding="utf-8",
+                errors="replace",
                 capture_output=True,
                 timeout=target.timeout_seconds,
                 check=False,
@@ -190,8 +192,8 @@ def run_execution(
             process_result = subprocess.CompletedProcess(
                 command,
                 returncode=-1,
-                stdout=exc.stdout if isinstance(exc.stdout, str) else "",
-                stderr=exc.stderr if isinstance(exc.stderr, str) else "",
+                stdout=_decode_subprocess_output(exc.stdout),
+                stderr=_decode_subprocess_output(exc.stderr),
             )
             termination_status = "timeout"
         except FileNotFoundError as exc:
@@ -444,6 +446,14 @@ def _candidate_artifact_dir(run_dir: Path, candidate_id: str) -> Path:
 
 def _resolve_executable(command: str) -> str:
     return shutil.which(command) or command
+
+
+def _decode_subprocess_output(value: str | bytes | None) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value
+    return value.decode("utf-8", errors="replace")
 
 
 def grade_case(worktree: Path, benchmark_case: Mapping[str, Any]) -> dict[str, Any]:

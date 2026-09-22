@@ -245,6 +245,44 @@ class ExecutionTests(unittest.TestCase):
             self.assertEqual(observation["execution"]["exit_code"], 5)
             self.assertIs(observation["behavior"]["task_success"], True)
 
+    def test_malformed_subprocess_output_is_captured_with_replacement(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            temp_path = Path(temp)
+            fake_cli = _write_fake_cli(
+                temp_path,
+                [
+                    "from pathlib import Path",
+                    "import sys",
+                    "sys.stdout.buffer.write(b'valid stdout before invalid: \\xff\\n')",
+                    "sys.stderr.buffer.write(b'valid stderr before invalid: \\xfe\\n')",
+                    "Path('src/api_contract.py').write_text("
+                    "\"def endpoint_name():\\n    return 'accounts'\\n\", encoding='utf-8')",
+                ],
+            )
+
+            result = run_execution(
+                corpus=load_corpus(),
+                case_id="duplication-generated-contract-low",
+                treatment="original",
+                target=ExecutionTarget(
+                    id="fake-cli", command=sys.executable, args=(str(fake_cli),)
+                ),
+                output_dir=temp_path / "evidence",
+                observation_id="obs-malformed-output",
+            )
+
+            observation = dict(result.observation or {})
+            self.assertEqual(observation["validity"]["status"], "valid")
+            self.assertIs(observation["behavior"]["task_success"], True)
+            self.assertIn(
+                "valid stdout before invalid: �",
+                (result.evidence_dir / "stdout.txt").read_text(encoding="utf-8"),
+            )
+            self.assertIn(
+                "valid stderr before invalid: �",
+                (result.evidence_dir / "stderr.txt").read_text(encoding="utf-8"),
+            )
+
     def test_grader_failure_invalidates_observation_without_false_behavior(self) -> None:
         corpus = load_corpus()
         corpus["cases"][0]["grader"]["python"] = "raise RuntimeError('grader exploded')"
