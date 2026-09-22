@@ -71,8 +71,20 @@ function expectedCommit(path) {
   return match ? match[1] : null;
 }
 
-function isGitCheckout(path) {
-  return existsSync(join(repoRoot, path, ".git")) || existsSync(join(repoRoot, path));
+function pathState(path) {
+  if (!existsSync(join(repoRoot, path))) {
+    return "missing";
+  }
+
+  const result = spawnSync("git", ["-C", path, "rev-parse", "--is-inside-work-tree"], {
+    cwd: repoRoot,
+    encoding: "utf8",
+    stdio: "pipe",
+  });
+
+  return result.status === 0 && result.stdout.trim() === "true"
+    ? "git-checkout"
+    : "non-git-path";
 }
 
 function currentCommit(path) {
@@ -86,6 +98,11 @@ function currentCommit(path) {
 function printStatus(modules) {
   for (const module of modules) {
     const expected = expectedCommit(module.path);
+    const state = pathState(module.path);
+    if (state === "non-git-path") {
+      console.log(`!${expected ?? "unknown"} ${module.path} (path exists but is not a Git checkout)`);
+      continue;
+    }
     const current = currentCommit(module.path);
     const marker = !current ? "-" : current === expected ? " " : "+";
     console.log(`${marker}${current ?? expected ?? "unknown"} ${module.path}`);
@@ -98,9 +115,14 @@ function installModule(module) {
     throw new Error(`No gitlink entry found for ${module.path}`);
   }
 
-  if (!isGitCheckout(module.path)) {
+  const state = pathState(module.path);
+  if (state === "missing") {
     console.log(`Cloning ${module.path}...`);
     git(["clone", module.url, module.path]);
+  } else if (state === "non-git-path") {
+    throw new Error(
+      `${module.path} exists but is not a Git checkout; move it aside or initialize it before installing submodules`
+    );
   }
 
   git(["-C", module.path, "remote", "set-url", "origin", module.url]);

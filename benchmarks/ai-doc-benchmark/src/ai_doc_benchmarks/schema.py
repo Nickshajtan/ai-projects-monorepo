@@ -57,12 +57,8 @@ class BenchmarkValidationError(ValueError):
 def validate_corpus(corpus: Mapping[str, Any]) -> None:
     _require_equal(corpus, "benchmark_version", BENCHMARK_VERSION)
     cases = _require_list(corpus, "cases")
-    if not 15 <= len(cases) <= 20:
-        raise BenchmarkValidationError("initial corpus must contain 15 to 20 cases")
 
     case_ids: set[str] = set()
-    category_coverage: set[str] = set()
-    cohort_coverage: set[str] = set()
 
     for case in cases:
         if not isinstance(case, Mapping):
@@ -72,6 +68,14 @@ def validate_corpus(corpus: Mapping[str, Any]) -> None:
             raise BenchmarkValidationError(f"duplicate case id: {case_id}")
         case_ids.add(case_id)
         validate_case(case)
+
+
+def validate_starter_corpus_profile(corpus: Mapping[str, Any]) -> None:
+    validate_corpus(corpus)
+
+    category_coverage: set[str] = set()
+    cohort_coverage: set[str] = set()
+    for case in _require_list(corpus, "cases"):
         category_coverage.update(_require_string_set(case, "categories", ALLOWED_CATEGORIES))
         cohort_coverage.add(_require_str(case, "quality_cohort"))
 
@@ -144,7 +148,15 @@ def validate_case(case: Mapping[str, Any]) -> None:
     treatments = _require_mapping(case, "control_treatments")
     _require_mapping(treatments, "original")
     compression = _require_mapping(treatments, "simple_compression_control")
-    _require_str(compression, "method")
+    compression_applicable = _require_bool(compression, "applicable")
+    if compression_applicable:
+        _require_str(compression, "method")
+    else:
+        _require_str(compression, "reason")
+        if "method" in compression:
+            raise BenchmarkValidationError(
+                "non-applicable simple_compression_control must not define method"
+            )
     degraded = _require_mapping(treatments, "degraded_control")
     _require_str(degraded, "degradation")
     _require_str(degraded, "targeted_criterion")
@@ -242,9 +254,18 @@ def _require_str(parent: Mapping[str, Any], field: str) -> str:
 
 
 def _require_nullable_str(parent: Mapping[str, Any], field: str) -> str | None:
+    if field not in parent:
+        raise BenchmarkValidationError(f"{field} must be present")
     value = parent.get(field)
     if value is not None and not isinstance(value, str):
         raise BenchmarkValidationError(f"{field} must be a string or null")
+    return value
+
+
+def _require_bool(parent: Mapping[str, Any], field: str) -> bool:
+    value = parent.get(field)
+    if not isinstance(value, bool):
+        raise BenchmarkValidationError(f"{field} must be true or false")
     return value
 
 

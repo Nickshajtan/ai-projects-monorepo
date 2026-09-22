@@ -21,7 +21,8 @@ The current implementation covers the definition layer from
 - source instruction corpora, initial workspace state, tasks, and observable ground
   truth criteria;
 - treatment-control metadata for original, simple-compression, and degraded controls;
-- validation helpers for benchmark cases and normalized observation records.
+- validation helpers for benchmark cases, the starter-corpus profile, and normalized
+  observation records.
 
 It does not invoke coding agents, run `ai-doc`, schedule repetitions, or aggregate
 results. Those execution mechanics belong to a separate benchmark execution layer.
@@ -31,9 +32,11 @@ results. Those execution mechanics belong to a separate benchmark execution laye
 ```powershell
 $env:PYTHONPATH = "src"
 python -m ai_doc_benchmarks validate corpus/benchmark-corpus-v0.1.json
+python -m ai_doc_benchmarks validate --starter-profile corpus/benchmark-corpus-v0.1.json
 python -m unittest discover -s tests
 ```
 
 The validator checks that corpus data preserves the experimental semantics required by
-the benchmark definition without encoding comparative conclusions such as "winner",
-"improvement", or "regression".
+the benchmark definition. The starter-profile check additionally verifies the intended
+initial category and quality-cohort coverage. Observation records reject comparative
+conclusions such as "winner", "improvement", or "regression".

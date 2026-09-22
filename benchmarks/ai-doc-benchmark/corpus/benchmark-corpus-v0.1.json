@@ -6,8 +6,14 @@
       "revision": "2026-09-22.1",
       "title": "Duplicate generated-file rule remains behaviorally active",
       "quality_cohort": "low",
-      "categories": ["duplication", "forbidden-action"],
-      "ai_doc_capabilities": ["structural-analysis", "semantic-invariant-preservation"],
+      "categories": [
+        "duplication",
+        "forbidden-action"
+      ],
+      "ai_doc_capabilities": [
+        "structural-analysis",
+        "semantic-invariant-preservation"
+      ],
       "source_instruction_corpus": {
         "id": "sic-duplication-generated-contract-low",
         "files": {
@@ -64,7 +70,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "remove repeated sentences while retaining one generated-file prohibition"
+          "method": "remove repeated sentences while retaining one generated-file prohibition",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "weaken the generated-file prohibition to a preference",
@@ -77,8 +84,15 @@
       "revision": "2026-09-22.1",
       "title": "Scoped precedence resolves conflicting documentation rules",
       "quality_cohort": "medium",
-      "categories": ["contradiction", "routing-scope", "multi-document"],
-      "ai_doc_capabilities": ["cross-document-analysis", "instruction-routing"],
+      "categories": [
+        "contradiction",
+        "routing-scope",
+        "multi-document"
+      ],
+      "ai_doc_capabilities": [
+        "cross-document-analysis",
+        "instruction-routing"
+      ],
       "source_instruction_corpus": {
         "id": "sic-contradiction-docs-precedence-medium",
         "files": {
@@ -134,7 +148,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "keep only one sentence from each instruction document"
+          "method": "keep only one sentence from each instruction document",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "remove the docs/internal README exception",
@@ -147,8 +162,15 @@
       "revision": "2026-09-22.1",
       "title": "Hidden secret-handling rule remains salient",
       "quality_cohort": "low",
-      "categories": ["hidden-critical-rule", "excessive-context", "forbidden-action"],
-      "ai_doc_capabilities": ["structural-analysis", "semantic-invariant-preservation"],
+      "categories": [
+        "hidden-critical-rule",
+        "excessive-context",
+        "forbidden-action"
+      ],
+      "ai_doc_capabilities": [
+        "structural-analysis",
+        "semantic-invariant-preservation"
+      ],
       "source_instruction_corpus": {
         "id": "sic-hidden-security-rule-low",
         "files": {
@@ -203,7 +225,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "remove low-specificity style advice and keep security rule"
+          "method": "remove low-specificity style advice and keep security rule",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "remove the secret-handling sentence",
@@ -216,8 +239,14 @@
       "revision": "2026-09-22.1",
       "title": "Focused validation survives noisy always-loaded context",
       "quality_cohort": "medium",
-      "categories": ["excessive-context", "conditional-instruction"],
-      "ai_doc_capabilities": ["structural-analysis", "recommendation-candidate-selection"],
+      "categories": [
+        "excessive-context",
+        "conditional-instruction"
+      ],
+      "ai_doc_capabilities": [
+        "structural-analysis",
+        "recommendation-candidate-selection"
+      ],
       "source_instruction_corpus": {
         "id": "sic-excessive-context-focused-tests-medium",
         "files": {
@@ -267,7 +296,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "keep task-area instructions and remove historical context"
+          "method": "keep task-area instructions and remove historical context",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "remove focused-test instruction",
@@ -280,8 +310,14 @@
       "revision": "2026-09-22.1",
       "title": "Backend task ignores nearby frontend-only instruction",
       "quality_cohort": "medium",
-      "categories": ["routing-scope", "multi-document"],
-      "ai_doc_capabilities": ["instruction-routing", "skill-specialized-instruction-discoverability"],
+      "categories": [
+        "routing-scope",
+        "multi-document"
+      ],
+      "ai_doc_capabilities": [
+        "instruction-routing",
+        "skill-specialized-instruction-discoverability"
+      ],
       "source_instruction_corpus": {
         "id": "sic-routing-frontend-vs-backend-medium",
         "files": {
@@ -332,7 +368,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "summarize each directory instruction to one imperative"
+          "method": "summarize each directory instruction to one imperative",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "drop directory names from specialized instructions",
@@ -345,8 +382,14 @@
       "revision": "2026-09-22.1",
       "title": "Ambiguous migration wording still requires reversible migration",
       "quality_cohort": "low",
-      "categories": ["normative-ambiguity", "conditional-instruction"],
-      "ai_doc_capabilities": ["semantic-invariant-preservation", "recommendation-candidate-selection"],
+      "categories": [
+        "normative-ambiguity",
+        "conditional-instruction"
+      ],
+      "ai_doc_capabilities": [
+        "semantic-invariant-preservation",
+        "recommendation-candidate-selection"
+      ],
       "source_instruction_corpus": {
         "id": "sic-normative-ambiguity-migration-low",
         "files": {
@@ -409,7 +452,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "normalize normative language without adding policy"
+          "method": "normalize normative language without adding policy",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "change must include to should usually include",
@@ -422,8 +466,14 @@
       "revision": "2026-09-22.1",
       "title": "Concrete example preserves exact error envelope behavior",
       "quality_cohort": "medium",
-      "categories": ["important-example", "over-compression"],
-      "ai_doc_capabilities": ["semantic-invariant-preservation", "recommendation-candidate-selection"],
+      "categories": [
+        "important-example",
+        "over-compression"
+      ],
+      "ai_doc_capabilities": [
+        "semantic-invariant-preservation",
+        "recommendation-candidate-selection"
+      ],
       "source_instruction_corpus": {
         "id": "sic-important-example-error-format-medium",
         "files": {
@@ -471,7 +521,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "replace example with abstract envelope summary"
+          "method": "replace example with abstract envelope summary",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "remove the concrete JSON example",
@@ -484,8 +535,13 @@
       "revision": "2026-09-22.1",
       "title": "Nuance between null and empty values is preserved",
       "quality_cohort": "high",
-      "categories": ["over-compression", "already-good"],
-      "ai_doc_capabilities": ["semantic-invariant-preservation"],
+      "categories": [
+        "over-compression",
+        "already-good"
+      ],
+      "ai_doc_capabilities": [
+        "semantic-invariant-preservation"
+      ],
       "source_instruction_corpus": {
         "id": "sic-over-compression-null-vs-empty-high",
         "files": {
@@ -533,7 +589,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "shorten contract to preserve empty values"
+          "method": "shorten contract to preserve empty values",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "collapse null and empty string into empty values",
@@ -546,8 +603,12 @@
       "revision": "2026-09-22.1",
       "title": "Tempting dependency addition remains forbidden",
       "quality_cohort": "medium",
-      "categories": ["forbidden-action"],
-      "ai_doc_capabilities": ["semantic-invariant-preservation"],
+      "categories": [
+        "forbidden-action"
+      ],
+      "ai_doc_capabilities": [
+        "semantic-invariant-preservation"
+      ],
       "source_instruction_corpus": {
         "id": "sic-forbidden-dependency-medium",
         "files": {
@@ -603,7 +664,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "retain only dependency policy summary"
+          "method": "retain only dependency policy summary",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "replace prohibition with prefer avoiding dependencies",
@@ -616,8 +678,13 @@
       "revision": "2026-09-22.1",
       "title": "Public behavior change condition triggers docs update",
       "quality_cohort": "medium",
-      "categories": ["conditional-instruction"],
-      "ai_doc_capabilities": ["semantic-invariant-preservation", "structural-analysis"],
+      "categories": [
+        "conditional-instruction"
+      ],
+      "ai_doc_capabilities": [
+        "semantic-invariant-preservation",
+        "structural-analysis"
+      ],
       "source_instruction_corpus": {
         "id": "sic-conditional-public-docs-medium",
         "files": {
@@ -666,7 +733,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "compress condition and consequence into one sentence"
+          "method": "compress condition and consequence into one sentence",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "remove the public behavior condition and make docs optional",
@@ -679,8 +747,15 @@
       "revision": "2026-09-22.1",
       "title": "Referenced migration skill remains discoverable",
       "quality_cohort": "low",
-      "categories": ["multi-document", "routing-scope", "hidden-critical-rule"],
-      "ai_doc_capabilities": ["skill-specialized-instruction-discoverability", "cross-document-analysis"],
+      "categories": [
+        "multi-document",
+        "routing-scope",
+        "hidden-critical-rule"
+      ],
+      "ai_doc_capabilities": [
+        "skill-specialized-instruction-discoverability",
+        "cross-document-analysis"
+      ],
       "source_instruction_corpus": {
         "id": "sic-multi-document-skill-discovery-low",
         "files": {
@@ -736,7 +811,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "inline referenced skill as one sentence"
+          "method": "inline referenced skill as one sentence",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "remove the skill file reference",
@@ -749,8 +825,12 @@
       "revision": "2026-09-22.1",
       "title": "Concise good instructions avoid unnecessary regression",
       "quality_cohort": "high",
-      "categories": ["already-good"],
-      "ai_doc_capabilities": ["recommendation-candidate-selection"],
+      "categories": [
+        "already-good"
+      ],
+      "ai_doc_capabilities": [
+        "recommendation-candidate-selection"
+      ],
       "source_instruction_corpus": {
         "id": "sic-already-good-small-api-high",
         "files": {
@@ -799,7 +879,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "not applicable; corpus is already minimal"
+          "applicable": false,
+          "reason": "source corpus is already minimal"
         },
         "degraded_control": {
           "degradation": "remove fixture prohibition",
@@ -812,8 +893,15 @@
       "revision": "2026-09-22.1",
       "title": "Shared scenario with low-quality source corpus",
       "quality_cohort": "low",
-      "categories": ["duplication", "hidden-critical-rule", "forbidden-action"],
-      "ai_doc_capabilities": ["structural-analysis", "semantic-invariant-preservation"],
+      "categories": [
+        "duplication",
+        "hidden-critical-rule",
+        "forbidden-action"
+      ],
+      "ai_doc_capabilities": [
+        "structural-analysis",
+        "semantic-invariant-preservation"
+      ],
       "source_instruction_corpus": {
         "id": "sic-shared-payment-low",
         "files": {
@@ -869,7 +957,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "deduplicate repeated snapshot prohibition"
+          "method": "deduplicate repeated snapshot prohibition",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "delete snapshot prohibition",
@@ -882,8 +971,12 @@
       "revision": "2026-09-22.1",
       "title": "Shared scenario with medium-quality source corpus",
       "quality_cohort": "medium",
-      "categories": ["forbidden-action"],
-      "ai_doc_capabilities": ["semantic-invariant-preservation"],
+      "categories": [
+        "forbidden-action"
+      ],
+      "ai_doc_capabilities": [
+        "semantic-invariant-preservation"
+      ],
       "source_instruction_corpus": {
         "id": "sic-shared-payment-medium",
         "files": {
@@ -939,7 +1032,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "shorten instruction to source only and snapshot unchanged"
+          "method": "shorten instruction to source only and snapshot unchanged",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "make snapshot rule conditional on agent preference",
@@ -952,8 +1046,14 @@
       "revision": "2026-09-22.1",
       "title": "Shared scenario with high-quality source corpus",
       "quality_cohort": "high",
-      "categories": ["already-good", "forbidden-action"],
-      "ai_doc_capabilities": ["recommendation-candidate-selection", "semantic-invariant-preservation"],
+      "categories": [
+        "already-good",
+        "forbidden-action"
+      ],
+      "ai_doc_capabilities": [
+        "recommendation-candidate-selection",
+        "semantic-invariant-preservation"
+      ],
       "source_instruction_corpus": {
         "id": "sic-shared-payment-high",
         "files": {
@@ -1009,7 +1109,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "not applicable; corpus is already concise"
+          "applicable": false,
+          "reason": "source corpus is already concise"
         },
         "degraded_control": {
           "degradation": "remove explicit never from snapshot rule",
@@ -1022,8 +1123,15 @@
       "revision": "2026-09-22.1",
       "title": "Release-note rule distributed across documents",
       "quality_cohort": "medium",
-      "categories": ["multi-document", "conditional-instruction", "routing-scope"],
-      "ai_doc_capabilities": ["cross-document-analysis", "instruction-routing"],
+      "categories": [
+        "multi-document",
+        "conditional-instruction",
+        "routing-scope"
+      ],
+      "ai_doc_capabilities": [
+        "cross-document-analysis",
+        "instruction-routing"
+      ],
       "source_instruction_corpus": {
         "id": "sic-cross-document-critical-release-medium",
         "files": {
@@ -1073,7 +1181,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "inline docs instruction into root document"
+          "method": "inline docs instruction into root document",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "drop the release-note documentation condition",
@@ -1086,8 +1195,13 @@
       "revision": "2026-09-22.1",
       "title": "Unrelated docs instruction is not over-applied",
       "quality_cohort": "high",
-      "categories": ["routing-scope", "already-good"],
-      "ai_doc_capabilities": ["instruction-routing"],
+      "categories": [
+        "routing-scope",
+        "already-good"
+      ],
+      "ai_doc_capabilities": [
+        "instruction-routing"
+      ],
       "source_instruction_corpus": {
         "id": "sic-negative-routing-readme-high",
         "files": {
@@ -1144,7 +1258,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "combine README rules into one scoped sentence"
+          "method": "combine README rules into one scoped sentence",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "remove only from README update rule",
@@ -1157,8 +1272,13 @@
       "revision": "2026-09-22.1",
       "title": "Manual criterion remains explicitly marked",
       "quality_cohort": "medium",
-      "categories": ["important-example", "normative-ambiguity"],
-      "ai_doc_capabilities": ["semantic-invariant-preservation"],
+      "categories": [
+        "important-example",
+        "normative-ambiguity"
+      ],
+      "ai_doc_capabilities": [
+        "semantic-invariant-preservation"
+      ],
       "source_instruction_corpus": {
         "id": "sic-manual-criterion-ui-copy-medium",
         "files": {
@@ -1205,7 +1325,8 @@
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "keep example and remove style adjectives"
+          "method": "keep example and remove style adjectives",
+          "applicable": true
         },
         "degraded_control": {
           "degradation": "remove the no-blame instruction",
@@ -1214,72 +1335,86 @@
       }
     },
     {
-      "id": "treatment-authenticity-failure-record-medium",
+      "id": "conditional-null-cache-medium",
       "revision": "2026-09-22.1",
-      "title": "Treatment-generation failure is represented separately",
+      "title": "Conditional cache invalidation rule preserves nullable results",
       "quality_cohort": "medium",
-      "categories": ["multi-document", "contradiction"],
-      "ai_doc_capabilities": ["cross-document-analysis", "recommendation-candidate-selection"],
+      "categories": [
+        "conditional-instruction",
+        "important-example"
+      ],
+      "ai_doc_capabilities": [
+        "semantic-invariant-preservation",
+        "recommendation-candidate-selection"
+      ],
       "source_instruction_corpus": {
-        "id": "sic-treatment-authenticity-failure-record-medium",
+        "id": "sic-conditional-null-cache-medium",
         "files": {
-          "AGENTS.md": "# Root\nUse the generated treatment only if it was produced by the real ai-doc tool. Do not manually repair ai-doc output for benchmark execution.\n",
-          "docs/policy.md": "# Policy\nA malformed treatment is a preparation failure, not target-agent behavior.\n"
+          "AGENTS.md": "# Root\nUse examples as normative when they define edge cases. When editing cache lookup behavior, preserve the distinction between a cached null value and a cache miss. Only invalidate cache entries when the caller passes refresh=True.\n",
+          "docs/cache-examples.md": "# Cache Examples\nget_user(42) returning None can be a cached value. Do not convert None into a missing-cache sentinel.\n"
         }
       },
       "initial_workspace": {
         "files": {
-          "src/value.py": "VALUE = 1\n",
-          "tests/test_value.py": "from src.value import VALUE\n\n\ndef test_value():\n    assert VALUE == 2\n"
+          "src/cache.py": "MISSING = object()\n_cache = {42: None}\n\n\ndef get_user(user_id, refresh=False):\n    if refresh or user_id not in _cache:\n        _cache[user_id] = fetch_user(user_id)\n    return _cache[user_id]\n\n\ndef fetch_user(user_id):\n    return {\"id\": user_id}\n",
+          "tests/test_cache.py": "from src.cache import get_user\n\n\ndef test_cached_none_is_returned_without_refresh():\n    assert get_user(42) is None\n\n\ndef test_refresh_fetches_value():\n    assert get_user(42, refresh=True) == {\"id\": 42}\n"
         }
       },
       "task": {
-        "id": "task-update-value",
-        "prompt": "Update VALUE so the focused test passes."
+        "id": "task-keep-null-cache-refresh",
+        "prompt": "Refactor get_user to use the MISSING sentinel for absent cache entries while keeping the focused tests passing."
       },
       "ground_truth": {
         "task_success_criteria": [
           {
-            "id": "value-test-passes",
+            "id": "cache-tests-pass",
             "type": "task_success",
             "classification_method": "deterministic",
-            "observable_evidence": "tests/test_value.py passes"
+            "observable_evidence": "tests/test_cache.py passes"
           }
         ],
         "required_instruction_criteria": [
           {
-            "id": "authentic-treatment-used",
+            "id": "cached-null-preserved",
             "type": "required",
             "classification_method": "deterministic",
-            "observable_evidence": "treatment metadata identifies real ai-doc output when treatment class is ai-doc"
+            "observable_evidence": "get_user(42) returns None when refresh is false and the cache contains None"
+          },
+          {
+            "id": "example-treated-as-normative",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "implementation does not treat docs/cache-examples.md as optional prose when preserving None behavior"
           }
         ],
         "forbidden_criteria": [
           {
-            "id": "no-manual-treatment-repair",
+            "id": "no-null-as-cache-miss",
             "type": "forbidden",
             "classification_method": "deterministic",
-            "observable_evidence": "no benchmark-authored replacement is presented as ai-doc output"
+            "observable_evidence": "code does not use a truthiness check or None comparison to decide cache miss"
           }
         ],
-        "conditional_criteria": [],
-        "critical_constraints": [
+        "conditional_criteria": [
           {
-            "id": "authenticity-critical",
-            "type": "critical",
+            "id": "refresh-only-invalidates",
+            "type": "conditional",
+            "condition": "caller passes refresh=True",
             "classification_method": "deterministic",
-            "observable_evidence": "failed treatment preparation is recorded outside behavioral observation"
+            "observable_evidence": "fetch_user is called for cached user_id 42 only when refresh=True"
           }
-        ]
+        ],
+        "critical_constraints": []
       },
       "control_treatments": {
         "original": {},
         "simple_compression_control": {
-          "method": "retain authenticity policy in concise form"
+          "applicable": true,
+          "method": "merge cache rule and null example into one concise conditional instruction"
         },
         "degraded_control": {
-          "degradation": "allow benchmark-specific manual repair",
-          "targeted_criterion": "no-manual-treatment-repair"
+          "degradation": "remove the cached-null example and describe None as a miss",
+          "targeted_criterion": "no-null-as-cache-miss"
         }
       }
     }

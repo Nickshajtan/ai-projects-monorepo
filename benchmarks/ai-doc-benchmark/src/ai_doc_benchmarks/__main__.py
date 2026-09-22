@@ -4,7 +4,11 @@ import argparse
 import json
 from pathlib import Path
 
-from ai_doc_benchmarks.schema import BenchmarkValidationError, validate_corpus
+from ai_doc_benchmarks.schema import (
+    BenchmarkValidationError,
+    validate_corpus,
+    validate_starter_corpus_profile,
+)
 
 
 def main() -> int:
@@ -12,13 +16,17 @@ def main() -> int:
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     validate_parser = subparsers.add_parser("validate")
+    validate_parser.add_argument("--starter-profile", action="store_true")
     validate_parser.add_argument("corpus", type=Path)
 
     args = parser.parse_args()
     if args.command == "validate":
         payload = json.loads(args.corpus.read_text(encoding="utf-8"))
         try:
-            validate_corpus(payload)
+            if args.starter_profile:
+                validate_starter_corpus_profile(payload)
+            else:
+                validate_corpus(payload)
         except BenchmarkValidationError as exc:
             print(str(exc))
             return 1

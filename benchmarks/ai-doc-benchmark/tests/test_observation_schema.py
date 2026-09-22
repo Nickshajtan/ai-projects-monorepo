@@ -82,3 +82,51 @@ class ObservationSchemaTests(unittest.TestCase):
 
         with self.assertRaisesRegex(BenchmarkValidationError, "reason"):
             validate_observation_record(observation)
+
+    def test_behavioral_failure_can_still_be_valid_observation(self) -> None:
+        observation = valid_observation()
+        observation["validity"] = {"status": "valid", "reason": None}
+        observation["behavior"]["task_success"] = False
+        observation["behavior"]["criteria"][0]["outcome"] = "violated"
+
+        validate_observation_record(observation)
+
+    def test_validity_is_independent_from_task_success(self) -> None:
+        observation = valid_observation()
+        observation["validity"] = {
+            "status": "invalid",
+            "reason": "execution target crashed before producing behavior",
+        }
+        observation["behavior"]["task_success"] = True
+
+        validate_observation_record(observation)
+
+    def test_unknown_outcome_is_explicit_not_satisfied(self) -> None:
+        observation = valid_observation()
+        observation["behavior"]["criteria"][1]["outcome"] = "unknown"
+
+        validate_observation_record(observation)
+        self.assertNotEqual(observation["behavior"]["criteria"][1]["outcome"], "satisfied")
+
+    def test_conditional_criterion_requires_explicit_applicability(self) -> None:
+        observation = valid_observation()
+        observation["behavior"]["criteria"].append(
+            {
+                "id": "release-note-needed",
+                "type": "conditional",
+                "outcome": "not_applicable",
+            }
+        )
+
+        with self.assertRaisesRegex(BenchmarkValidationError, "applicability"):
+            validate_observation_record(observation)
+
+        observation["behavior"]["criteria"][-1]["applicability"] = "not_applicable"
+        validate_observation_record(observation)
+
+    def test_required_evidence_fields_cannot_disappear(self) -> None:
+        observation = valid_observation()
+        del observation["evidence"]["grading_evidence"]
+
+        with self.assertRaisesRegex(BenchmarkValidationError, "grading_evidence"):
+            validate_observation_record(observation)
