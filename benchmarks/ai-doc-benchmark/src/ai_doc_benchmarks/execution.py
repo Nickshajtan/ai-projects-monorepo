@@ -8,7 +8,6 @@ import stat
 import subprocess
 import sys
 import tempfile
-import textwrap
 import time
 import uuid
 from collections.abc import Mapping, Sequence
@@ -96,6 +95,7 @@ class PreparedTreatment:
     resulting_corpus: str
     artifact: str
     artifact_sha256: str
+    provenance: Mapping[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -115,7 +115,8 @@ def run_execution(
     output_dir: Path,
     repetition: int = 1,
     observation_id: str | None = None,
-    keep_worktree: bool = False,
+    keep_workspace: bool = False,
+    ai_doc_root: Path | None = None,
 ) -> ExecutionResult:
     benchmark_case = _find_case(corpus, case_id)
     validate_case(benchmark_case)
@@ -125,7 +126,7 @@ def run_execution(
     evidence_dir.mkdir(parents=True, exist_ok=False)
 
     try:
-        prepared = prepare_treatment(benchmark_case, treatment)
+        prepared = prepare_treatment(benchmark_case, treatment, ai_doc_root=ai_doc_root)
     except TreatmentPreparationError as exc:
         failure = {
             "observation_id": observation_id,
@@ -147,12 +148,13 @@ def run_execution(
             "configuration": prepared.configuration,
             "resulting_corpus": prepared.resulting_corpus,
             "artifact_sha256": prepared.artifact_sha256,
+            "provenance": dict(prepared.provenance),
         },
     )
 
-    worktree_parent = output_dir / "worktrees"
-    worktree_parent.mkdir(parents=True, exist_ok=True)
-    worktree = Path(tempfile.mkdtemp(prefix=f"{observation_id}-", dir=worktree_parent))
+    workspace_parent = output_dir / "workspaces"
+    workspace_parent.mkdir(parents=True, exist_ok=True)
+    workspace = Path(tempfile.mkdtemp(prefix=f"{observation_id}-", dir=workspace_parent))
     target_started = False
     execution_started_at = time.monotonic()
     process_result: subprocess.CompletedProcess[str] | None = None
@@ -161,10 +163,10 @@ def run_execution(
     validity_reason: str | None = None
 
     try:
-        _populate_worktree(worktree, benchmark_case)
-        _write_text(worktree / "task.md", prepared.artifact)
-        _git(["add", "."], worktree)
-        _git(["commit", "-m", "case baseline"], worktree)
+        _populate_workspace(workspace, benchmark_case)
+        _write_text(workspace / "task.md", prepared.artifact)
+        _git(["add", "."], workspace)
+        _git(["commit", "-m", "case baseline"], workspace)
 
         command = [target.command, *target.args, PROMPT]
         env = os.environ.copy()
@@ -174,7 +176,7 @@ def run_execution(
             target_started = True
             process_result = subprocess.run(
                 command,
-                cwd=worktree,
+                cwd=workspace,
                 env=env,
                 text=True,
                 capture_output=True,
@@ -201,9 +203,9 @@ def run_execution(
             termination_status = "startup-failure"
 
         duration = time.monotonic() - execution_started_at
-        grading = grade_case(worktree, benchmark_case)
-        diff_text = _git(["diff", "--no-ext-diff", "HEAD"], worktree, capture=True)
-        untracked = _collect_untracked(worktree)
+        grading = grade_case(workspace, benchmark_case)
+        diff_text = _git(["diff", "--no-ext-diff", "HEAD"], workspace, capture=True)
+        untracked = _collect_untracked(workspace)
 
         _write_text(evidence_dir / "stdout.txt", process_result.stdout or "")
         _write_text(evidence_dir / "stderr.txt", process_result.stderr or "")
@@ -214,7 +216,7 @@ def run_execution(
             evidence_dir / "execution.json",
             {
                 "command": command,
-                "cwd": str(worktree),
+                "cwd": str(workspace),
                 "exit_code": process_result.returncode,
                 "termination_status": termination_status,
                 "timeout": timed_out,
@@ -250,18 +252,17 @@ def run_execution(
         _write_json(evidence_dir / "observation.json", observation)
         return ExecutionResult(observation_id, observation, evidence_dir)
     finally:
-        if keep_worktree:
-            _write_text(evidence_dir / "worktree.txt", str(worktree))
+        if keep_workspace:
+            _write_text(evidence_dir / "workspace.txt", str(workspace))
         else:
-            _remove_tree(worktree)
+            _remove_tree(workspace)
 
 
-def prepare_treatment(benchmark_case: Mapping[str, Any], treatment: str) -> PreparedTreatment:
+def prepare_treatment(
+    benchmark_case: Mapping[str, Any], treatment: str, *, ai_doc_root: Path | None = None
+) -> PreparedTreatment:
     if treatment == "ai-doc":
-        raise TreatmentPreparationError(
-            "ai-doc treatment generation is not implemented in execution v0.1 without "
-            "a real ai-doc API binding"
-        )
+        return _prepare_ai_doc_treatment(benchmark_case, ai_doc_root=ai_doc_root)
     if treatment not in TREATMENT_KEYS:
         choices = ", ".join([*TREATMENT_KEYS, "ai-doc"])
         raise TreatmentPreparationError(
@@ -283,24 +284,157 @@ def prepare_treatment(benchmark_case: Mapping[str, Any], treatment: str) -> Prep
     elif treatment == "degraded-control":
         configuration = control["degradation"]
 
-    artifact = _render_task_artifact(benchmark_case, treatment, configuration)
+    artifact_files = _artifact_files(control, treatment)
+    artifact = _render_task_artifact(benchmark_case, artifact_files)
     return PreparedTreatment(
         treatment_class=treatment,
         configuration=configuration,
         resulting_corpus=f"{benchmark_case['source_instruction_corpus']['id']}:{treatment}",
         artifact=artifact,
         artifact_sha256=hashlib.sha256(artifact.encode("utf-8")).hexdigest(),
+        provenance={"artifact_source": "benchmark-data"},
+    )
+
+
+def _artifact_files(control: Mapping[str, Any], treatment: str) -> Mapping[str, str]:
+    artifact = control.get("artifact")
+    if not isinstance(artifact, Mapping) or not isinstance(artifact.get("files"), Mapping):
+        raise TreatmentPreparationError(
+            f"{treatment} does not define a deterministic treatment artifact"
+        )
+    files = artifact["files"]
+    if not files or not all(
+        isinstance(path, str) and isinstance(text, str) for path, text in files.items()
+    ):
+        raise TreatmentPreparationError(
+            f"{treatment} artifact.files must be a non-empty string map"
+        )
+    return files
+
+
+def _prepare_ai_doc_treatment(
+    benchmark_case: Mapping[str, Any], *, ai_doc_root: Path | None
+) -> PreparedTreatment:
+    root = ai_doc_root or Path(__file__).resolve().parents[4] / "projects" / "ai-doc"
+    python = root / ".venv" / ("Scripts/python.exe" if sys.platform == "win32" else "bin/python")
+    if not python.exists():
+        raise TreatmentPreparationError(f"ai-doc runtime is missing at {python}")
+
+    with tempfile.TemporaryDirectory() as temp:
+        project = Path(temp) / "project"
+        project.mkdir()
+        source_files = benchmark_case["source_instruction_corpus"]["files"]
+        for path, content in source_files.items():
+            _write_text(project / path, content)
+        include = ", ".join(json.dumps(path) for path in source_files)
+        profiles = ", ".join(f"{json.dumps(path)}: instruction" for path in source_files)
+        _write_text(
+            project / ".ai-doc.yaml",
+            f"version: 1\ninclude: [{include}]\nprofiles: {{{profiles}}}\n",
+        )
+        output = project / ".ai-doc-output"
+        env = os.environ.copy()
+        env["PYTHONPATH"] = str(root / "src")
+        result = subprocess.run(
+            [
+                str(python),
+                "-m",
+                "ai_doc",
+                "optimize",
+                str(project),
+                "--output",
+                str(output),
+                "--max-candidates",
+                "2",
+            ],
+            text=True,
+            capture_output=True,
+            env=env,
+            check=False,
+        )
+        if result.returncode not in {0, 4}:
+            raise TreatmentPreparationError(
+                f"ai-doc optimize failed with exit {result.returncode}: {result.stderr.strip()}"
+            )
+        run_dirs = sorted(output.iterdir()) if output.exists() else []
+        if not run_dirs:
+            raise TreatmentPreparationError("ai-doc optimize produced no output run directory")
+        run_dir = run_dirs[-1]
+        candidate_dirs = sorted((run_dir / "candidates").glob("*/candidate"))
+        if not candidate_dirs:
+            raise TreatmentPreparationError("ai-doc optimize produced no candidate artifact")
+        candidate = candidate_dirs[0]
+        files: dict[str, str] = {}
+        for path in source_files:
+            candidate_file = candidate / path
+            if candidate_file.exists():
+                files[path] = candidate_file.read_text(encoding="utf-8")
+        if not files:
+            raise TreatmentPreparationError(
+                "ai-doc candidate artifact did not contain source files"
+            )
+
+    artifact = _render_task_artifact(benchmark_case, files)
+    commit = _git(["rev-parse", "HEAD"], root, capture=True).strip()
+    return PreparedTreatment(
+        treatment_class="ai-doc",
+        configuration="cli optimize --max-candidates 2",
+        resulting_corpus=f"{benchmark_case['source_instruction_corpus']['id']}:ai-doc",
+        artifact=artifact,
+        artifact_sha256=hashlib.sha256(artifact.encode("utf-8")).hexdigest(),
+        provenance={
+            "artifact_source": "ai-doc-cli",
+            "ai_doc_root": str(root),
+            "ai_doc_commit": commit,
+            "api_path": "python -m ai_doc optimize",
+        },
     )
 
 
 def grade_case(worktree: Path, benchmark_case: Mapping[str, Any]) -> dict[str, Any]:
-    baseline_files = benchmark_case["initial_workspace"]["files"]
-    diff_names = _git(["diff", "--name-only", "HEAD"], worktree, capture=True).splitlines()
-    changed_paths = set(diff_names)
-    test_cache: dict[str, tuple[bool, str]] = {}
-    criteria: list[dict[str, Any]] = []
+    grader = benchmark_case.get("grader")
+    if not isinstance(grader, Mapping) or not isinstance(grader.get("python"), str):
+        return _failed_grading(
+            benchmark_case, "case does not define executable deterministic grader"
+        )
 
-    grader_status = "completed"
+    with tempfile.TemporaryDirectory() as temp:
+        grader_path = Path(temp) / "grader.py"
+        baseline_path = Path(temp) / "baseline.json"
+        grader_path.write_text(grader["python"], encoding="utf-8")
+        baseline_path.write_text(
+            json.dumps({"files": benchmark_case["initial_workspace"]["files"]}),
+            encoding="utf-8",
+        )
+        result = subprocess.run(
+            [sys.executable, str(grader_path), str(worktree), str(baseline_path)],
+            text=True,
+            capture_output=True,
+            timeout=30,
+            check=False,
+        )
+
+    if result.returncode != 0:
+        return _failed_grading(benchmark_case, (result.stdout + result.stderr).strip())
+    try:
+        payload = json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        return _failed_grading(benchmark_case, f"grader emitted invalid JSON: {exc}")
+
+    criteria = payload.get("criteria")
+    task_success = payload.get("task_success")
+    if task_success not in {True, False, "unknown"} or not isinstance(criteria, list):
+        return _failed_grading(benchmark_case, "grader result missing task_success or criteria")
+
+    return {
+        "task_success": task_success,
+        "criteria": criteria,
+        "grader_status": "completed",
+    }
+
+
+def _failed_grading(benchmark_case: Mapping[str, Any], reason: str) -> dict[str, Any]:
+    criteria: list[dict[str, Any]] = []
     for group_name in (
         "task_success_criteria",
         "required_instruction_criteria",
@@ -309,31 +443,21 @@ def grade_case(worktree: Path, benchmark_case: Mapping[str, Any]) -> dict[str, A
         "critical_constraints",
     ):
         for criterion in benchmark_case["ground_truth"][group_name]:
-            result = _classify_criterion(
-                worktree=worktree,
-                baseline_files=baseline_files,
-                changed_paths=changed_paths,
-                criterion=criterion,
-                test_cache=test_cache,
-            )
+            result: dict[str, Any] = {
+                "id": criterion["id"],
+                "type": criterion["type"],
+                "outcome": "unknown",
+                "evidence": reason,
+                "grader_error": True,
+            }
+            if criterion["type"] == "conditional":
+                result["applicability"] = "unknown"
             criteria.append(result)
-            if result.get("grader_error"):
-                grader_status = "failed"
-
-    task_outcomes = [
-        criterion["outcome"] for criterion in criteria if criterion["type"] == "task_success"
-    ]
-    if task_outcomes and all(outcome == "satisfied" for outcome in task_outcomes):
-        task_success: bool | str = True
-    elif any(outcome == "violated" for outcome in task_outcomes):
-        task_success = False
-    else:
-        task_success = "unknown"
-
     return {
-        "task_success": task_success,
+        "task_success": "unknown",
         "criteria": criteria,
-        "grader_status": grader_status,
+        "grader_status": "failed",
+        "reason": reason,
     }
 
 
@@ -344,7 +468,7 @@ def _find_case(corpus: Mapping[str, Any], case_id: str) -> Mapping[str, Any]:
     raise ExecutionError(f"case not found: {case_id}")
 
 
-def _populate_worktree(worktree: Path, benchmark_case: Mapping[str, Any]) -> None:
+def _populate_workspace(worktree: Path, benchmark_case: Mapping[str, Any]) -> None:
     _git(["init"], worktree)
     _git(["config", "user.name", "AI Doc Benchmark"], worktree)
     _git(["config", "user.email", "benchmark@example.invalid"], worktree)
@@ -358,7 +482,7 @@ def _populate_worktree(worktree: Path, benchmark_case: Mapping[str, Any]) -> Non
 
 
 def _render_task_artifact(
-    benchmark_case: Mapping[str, Any], treatment: str, configuration: str
+    benchmark_case: Mapping[str, Any], instruction_files: Mapping[str, str]
 ) -> str:
     sections = [
         f"# {benchmark_case['task']['id']}",
@@ -369,7 +493,7 @@ def _render_task_artifact(
         "",
     ]
 
-    for path, content in benchmark_case["source_instruction_corpus"]["files"].items():
+    for path, content in instruction_files.items():
         sections.extend(
             [
                 f"### {path}",
@@ -381,157 +505,7 @@ def _render_task_artifact(
             ]
         )
 
-    if treatment != "original":
-        sections.extend(
-            [
-                "## Treatment Control",
-                "",
-                f"Treatment: {treatment}",
-                f"Configuration: {configuration}",
-                "",
-            ]
-        )
-
     return "\n".join(sections).rstrip() + "\n"
-
-
-def _classify_criterion(
-    *,
-    worktree: Path,
-    baseline_files: Mapping[str, str],
-    changed_paths: set[str],
-    criterion: Mapping[str, Any],
-    test_cache: dict[str, tuple[bool, str]],
-) -> dict[str, Any]:
-    criterion_type = criterion["type"]
-    evidence = criterion["observable_evidence"]
-    supported, ok, details = _evaluate_evidence(
-        worktree=worktree,
-        baseline_files=baseline_files,
-        changed_paths=changed_paths,
-        evidence=evidence,
-        test_cache=test_cache,
-    )
-
-    if not supported:
-        outcome = "unknown"
-    elif ok:
-        outcome = "satisfied"
-    else:
-        outcome = "violated"
-
-    result: dict[str, Any] = {
-        "id": criterion["id"],
-        "type": criterion_type,
-        "outcome": outcome,
-        "evidence": details,
-    }
-    if criterion_type == "conditional":
-        result["applicability"] = "unknown" if not supported else "applicable"
-    return result
-
-
-def _evaluate_evidence(
-    *,
-    worktree: Path,
-    baseline_files: Mapping[str, str],
-    changed_paths: set[str],
-    evidence: str,
-    test_cache: dict[str, tuple[bool, str]],
-) -> tuple[bool, bool, str]:
-    if evidence.endswith(" passes") and evidence.startswith("tests/"):
-        test_path = evidence.removesuffix(" passes")
-        return _run_python_test_file(worktree, test_path, test_cache)
-
-    marker = " contains "
-    if marker in evidence:
-        path_text, expected = evidence.split(marker, 1)
-        path = path_text.strip()
-        file_path = worktree / path
-        if file_path.exists() and file_path.is_file():
-            return True, expected.strip() in file_path.read_text(encoding="utf-8"), evidence
-
-    if evidence.startswith("git diff contains no changes under "):
-        prefix = evidence.removeprefix("git diff contains no changes under ").strip()
-        return True, all(not path.startswith(prefix) for path in changed_paths), evidence
-
-    if evidence.endswith(" is unchanged"):
-        path = evidence.removesuffix(" is unchanged").strip()
-        return _file_matches_baseline(worktree, baseline_files, path, evidence)
-
-    if evidence.endswith(" is byte-identical to baseline"):
-        path = evidence.removesuffix(" is byte-identical to baseline").strip()
-        return _file_matches_baseline(worktree, baseline_files, path, evidence)
-
-    if evidence.startswith("no files under ") and evidence.endswith(" changed"):
-        prefix = evidence.removeprefix("no files under ").removesuffix(" changed").strip()
-        return True, all(not path.startswith(prefix) for path in changed_paths), evidence
-
-    return False, False, f"unsupported deterministic evidence: {evidence}"
-
-
-def _file_matches_baseline(
-    worktree: Path, baseline_files: Mapping[str, str], path: str, evidence: str
-) -> tuple[bool, bool, str]:
-    if path not in baseline_files:
-        return True, False, f"{evidence}; no baseline entry"
-    file_path = worktree / path
-    if not file_path.exists():
-        return True, False, f"{evidence}; file missing"
-    return True, file_path.read_text(encoding="utf-8") == baseline_files[path], evidence
-
-
-def _run_python_test_file(
-    worktree: Path, test_path: str, test_cache: dict[str, tuple[bool, str]]
-) -> tuple[bool, bool, str]:
-    if test_path in test_cache:
-        ok, details = test_cache[test_path]
-        return True, ok, details
-
-    if not (worktree / test_path).exists():
-        details = f"{test_path} is missing"
-        test_cache[test_path] = (False, details)
-        return True, False, details
-
-    runner = textwrap.dedent(
-        """
-        import importlib.util
-        import pathlib
-        import sys
-        import traceback
-
-        root = pathlib.Path.cwd()
-        path = root / sys.argv[1]
-        sys.path.insert(0, str(root))
-        spec = importlib.util.spec_from_file_location("benchmark_case_tests", path)
-        module = importlib.util.module_from_spec(spec)
-        try:
-            spec.loader.exec_module(module)
-            tests = [
-                value for name, value in vars(module).items()
-                if name.startswith("test_") and callable(value)
-            ]
-            if not tests:
-                raise AssertionError("no test_ functions found")
-            for test in tests:
-                test()
-        except BaseException:
-            traceback.print_exc()
-            raise
-        """
-    )
-    result = subprocess.run(
-        [sys.executable, "-c", runner, test_path],
-        cwd=worktree,
-        text=True,
-        capture_output=True,
-        timeout=30,
-        check=False,
-    )
-    details = (result.stdout + result.stderr).strip() or f"{test_path} passed"
-    ok = result.returncode == 0
-    test_cache[test_path] = (ok, details)
-    return True, ok, details
 
 
 def _build_observation(

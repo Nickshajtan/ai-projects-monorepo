@@ -72,7 +72,7 @@ python -m ai_doc_benchmarks execute `
   --output-dir runs
 ```
 
-The runner creates a temporary Git worktree, writes the selected treatment as neutral
+The runner creates an isolated temporary Git workspace, writes the selected treatment as neutral
 `task.md`, invokes the command with the prompt `Implement task.md`, grades the resulting
-workspace where deterministic evidence is supported, writes an Observation Record and
-supporting evidence, then removes the temporary worktree after evidence is preserved.
+workspace through the case-owned deterministic grader, writes an Observation Record and
+supporting evidence, then removes the temporary workspace after evidence is preserved.

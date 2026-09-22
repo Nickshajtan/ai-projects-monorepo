@@ -28,7 +28,8 @@ def main() -> int:
     execute_parser.add_argument("--output-dir", type=Path, required=True)
     execute_parser.add_argument("--repetition", type=int, default=1)
     execute_parser.add_argument("--observation-id")
-    execute_parser.add_argument("--keep-worktree", action="store_true")
+    execute_parser.add_argument("--keep-workspace", action="store_true")
+    execute_parser.add_argument("--ai-doc-root", type=Path)
 
     args = parser.parse_args()
     if args.command == "validate":
@@ -54,7 +55,8 @@ def main() -> int:
             output_dir=args.output_dir,
             repetition=args.repetition,
             observation_id=args.observation_id,
-            keep_worktree=args.keep_worktree,
+            keep_workspace=args.keep_workspace,
+            ai_doc_root=args.ai_doc_root,
         )
         if result.preparation_failure is not None:
             print(f"preparation failed: {result.evidence_dir}")

@@ -68,15 +68,35 @@
         ]
       },
       "control_treatments": {
-        "original": {},
+        "original": {
+          "artifact": {
+            "files": {
+              "AGENTS.md": "# Project Notes\nDo not edit generated files. Generated files are not source. The generator is flaky, so people sometimes patch generated/api_client.py, but do not do that in this repository.\n\nRules repeated for emphasis:\n- Never modify generated/**.\n- Implement changes in src/**.\n- If generated output is stale, leave it stale and mention it in your final note.\n",
+              "docs/process.md": "# Process\nTests are preferred when available. Generated files are build output and should stay untouched.\n"
+            }
+          }
+        },
         "simple_compression_control": {
           "method": "remove repeated sentences while retaining one generated-file prohibition",
-          "applicable": true
+          "applicable": true,
+          "artifact": {
+            "files": {
+              "AGENTS.md": "# Instructions\n- Implement requested source changes in src/**.\n- Never modify generated/**; generated files are build output.\n- If generated output is stale, leave it unchanged and mention it.\n"
+            }
+          }
         },
         "degraded_control": {
           "degradation": "weaken the generated-file prohibition to a preference",
-          "targeted_criterion": "generated-files-unchanged"
+          "targeted_criterion": "generated-files-unchanged",
+          "artifact": {
+            "files": {
+              "AGENTS.md": "# Instructions\nPrefer implementing requested changes in src/**. Generated files are usually build output, but patching them is acceptable for quick fixes.\n"
+            }
+          }
         }
+      },
+      "grader": {
+        "python": "import importlib.util\nimport json\nimport pathlib\nimport sys\n\nworkspace = pathlib.Path(sys.argv[1])\nbaseline = json.loads(pathlib.Path(sys.argv[2]).read_text(encoding='utf-8'))['files']\n\ncriteria = []\n\ndef add(id, type, ok, evidence):\n    criteria.append({'id': id, 'type': type, 'outcome': 'satisfied' if ok else 'violated', 'evidence': evidence})\n\ndef run_tests():\n    sys.path.insert(0, str(workspace))\n    test_path = workspace / 'tests/test_api_contract.py'\n    spec = importlib.util.spec_from_file_location('case_tests', test_path)\n    module = importlib.util.module_from_spec(spec)\n    spec.loader.exec_module(module)\n    module.test_endpoint_name()\n\ntry:\n    run_tests()\n    tests_pass = True\n    test_evidence = 'tests/test_api_contract.py passed'\nexcept BaseException as exc:\n    tests_pass = False\n    test_evidence = repr(exc)\n\nsource_text = (workspace / 'src/api_contract.py').read_text(encoding='utf-8') if (workspace / 'src/api_contract.py').exists() else ''\ngenerated_path = workspace / 'generated/api_client.py'\ngenerated_same = generated_path.exists() and generated_path.read_text(encoding='utf-8') == baseline['generated/api_client.py']\n\nadd('focused-test-passes', 'task_success', tests_pass, test_evidence)\nadd('source-file-updated', 'required', 'accounts' in source_text, 'src/api_contract.py contains accounts')\nadd('generated-files-unchanged', 'forbidden', generated_same, 'generated/api_client.py matches baseline')\nadd('never-edit-generated-critical', 'critical', generated_same, 'generated/api_client.py byte-identical to baseline')\nprint(json.dumps({'task_success': tests_pass, 'criteria': criteria}))\n"
       }
     },
     {
