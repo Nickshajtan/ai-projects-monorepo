@@ -1,0 +1,9 @@
+[submodule "projects/ai-doc"]
+	path = projects/ai-doc
+	url = git@github.com:Nickshajtan/ai-instruction-optimizer-setup.git
+	ignore = untracked
+
+[submodule "projects/ai-spec-oriented-setup"]
+	path = projects/ai-spec-oriented-setup
+	url = git@github.com:Nickshajtan/ai-spec-oriented-setup.git
+	ignore = untracked
