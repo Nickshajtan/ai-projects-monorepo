@@ -1,0 +1,17 @@
+{
+  "id": "claude-sonnet-5-bypass-smoke",
+  "command": "C:\\Users\\38098\\.local\\bin\\claude.exe",
+  "args": [
+    "--print",
+    "--output-format",
+    "json",
+    "--model",
+    "sonnet",
+    "--permission-mode",
+    "bypassPermissions"
+  ],
+  "timeout_seconds": 600,
+  "model": "claude-sonnet-5",
+  "env": {},
+  "tool_version": "claude-code 2.1.280"
+}
