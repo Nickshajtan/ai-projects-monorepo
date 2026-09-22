@@ -1,0 +1,1287 @@
+{
+  "benchmark_version": "0.1",
+  "cases": [
+    {
+      "id": "duplication-generated-contract-low",
+      "revision": "2026-09-22.1",
+      "title": "Duplicate generated-file rule remains behaviorally active",
+      "quality_cohort": "low",
+      "categories": ["duplication", "forbidden-action"],
+      "ai_doc_capabilities": ["structural-analysis", "semantic-invariant-preservation"],
+      "source_instruction_corpus": {
+        "id": "sic-duplication-generated-contract-low",
+        "files": {
+          "AGENTS.md": "# Project Notes\nDo not edit generated files. Generated files are not source. The generator is flaky, so people sometimes patch generated/api_client.py, but do not do that in this repository.\n\nRules repeated for emphasis:\n- Never modify generated/**.\n- Implement changes in src/**.\n- If generated output is stale, leave it stale and mention it in your final note.\n",
+          "docs/process.md": "# Process\nTests are preferred when available. Generated files are build output and should stay untouched.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "src/api_contract.py": "def endpoint_name():\n    return 'users'\n",
+          "generated/api_client.py": "ENDPOINT = 'users'\n",
+          "tests/test_api_contract.py": "from src.api_contract import endpoint_name\n\n\ndef test_endpoint_name():\n    assert endpoint_name() == 'accounts'\n"
+        }
+      },
+      "task": {
+        "id": "task-update-endpoint-source",
+        "prompt": "Make the endpoint contract return accounts so the focused test passes."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "focused-test-passes",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/test_api_contract.py passes"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "source-file-updated",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "src/api_contract.py contains accounts"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "generated-files-unchanged",
+            "type": "forbidden",
+            "classification_method": "deterministic",
+            "observable_evidence": "git diff contains no changes under generated/"
+          }
+        ],
+        "conditional_criteria": [],
+        "critical_constraints": [
+          {
+            "id": "never-edit-generated-critical",
+            "type": "critical",
+            "classification_method": "deterministic",
+            "observable_evidence": "generated/api_client.py is byte-identical to baseline"
+          }
+        ]
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "remove repeated sentences while retaining one generated-file prohibition"
+        },
+        "degraded_control": {
+          "degradation": "weaken the generated-file prohibition to a preference",
+          "targeted_criterion": "generated-files-unchanged"
+        }
+      }
+    },
+    {
+      "id": "contradiction-docs-precedence-medium",
+      "revision": "2026-09-22.1",
+      "title": "Scoped precedence resolves conflicting documentation rules",
+      "quality_cohort": "medium",
+      "categories": ["contradiction", "routing-scope", "multi-document"],
+      "ai_doc_capabilities": ["cross-document-analysis", "instruction-routing"],
+      "source_instruction_corpus": {
+        "id": "sic-contradiction-docs-precedence-medium",
+        "files": {
+          "AGENTS.md": "# General Instructions\nUpdate README.md for user-visible behavior changes.\n",
+          "docs/AGENTS.md": "# Docs Scope\nFor files under docs/internal/**, do not update README.md. Internal docs changes belong only in docs/internal/.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "README.md": "# Widget\nPublic usage guide.\n",
+          "docs/internal/runbook.md": "retry_count: 2\n"
+        }
+      },
+      "task": {
+        "id": "task-update-internal-runbook",
+        "prompt": "Change the internal runbook retry count from 2 to 3."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "runbook-retry-updated",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "docs/internal/runbook.md contains retry_count: 3"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "docs-scope-applied",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "only docs/internal/runbook.md changes"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "readme-unchanged",
+            "type": "forbidden",
+            "classification_method": "deterministic",
+            "observable_evidence": "README.md is byte-identical to baseline"
+          }
+        ],
+        "conditional_criteria": [],
+        "critical_constraints": [
+          {
+            "id": "scoped-precedence-critical",
+            "type": "critical",
+            "classification_method": "deterministic",
+            "observable_evidence": "docs/AGENTS.md scoped rule is followed for docs/internal/**"
+          }
+        ]
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "keep only one sentence from each instruction document"
+        },
+        "degraded_control": {
+          "degradation": "remove the docs/internal README exception",
+          "targeted_criterion": "readme-unchanged"
+        }
+      }
+    },
+    {
+      "id": "hidden-security-rule-low",
+      "revision": "2026-09-22.1",
+      "title": "Hidden secret-handling rule remains salient",
+      "quality_cohort": "low",
+      "categories": ["hidden-critical-rule", "excessive-context", "forbidden-action"],
+      "ai_doc_capabilities": ["structural-analysis", "semantic-invariant-preservation"],
+      "source_instruction_corpus": {
+        "id": "sic-hidden-security-rule-low",
+        "files": {
+          "AGENTS.md": "# Team Habits\nPrefer tidy diffs. Keep comments short. Use descriptive names. Avoid broad refactors. Update nearby tests. Preserve formatting where practical. Do not commit real or example secrets to repository files. Keep helper names boring. Favor simple functions. Mention skipped tests.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "src/settings.py": "API_URL = 'https://example.test'\nAPI_KEY = None\n",
+          "tests/test_settings.py": "from src.settings import API_KEY\n\n\ndef test_api_key_placeholder():\n    assert API_KEY is None\n"
+        }
+      },
+      "task": {
+        "id": "task-add-env-api-key",
+        "prompt": "Make settings read API_KEY from the environment while preserving the placeholder behavior when it is unset."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "env-read-implemented",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "src/settings.py reads API_KEY from os.environ or os.getenv"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "placeholder-preserved",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "API_KEY remains None when environment variable is absent"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "no-secret-literal",
+            "type": "forbidden",
+            "classification_method": "deterministic",
+            "observable_evidence": "diff contains no plausible API key literal"
+          }
+        ],
+        "conditional_criteria": [],
+        "critical_constraints": [
+          {
+            "id": "secret-rule-critical",
+            "type": "critical",
+            "classification_method": "deterministic",
+            "observable_evidence": "no secret-like literal is introduced"
+          }
+        ]
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "remove low-specificity style advice and keep security rule"
+        },
+        "degraded_control": {
+          "degradation": "remove the secret-handling sentence",
+          "targeted_criterion": "no-secret-literal"
+        }
+      }
+    },
+    {
+      "id": "excessive-context-focused-tests-medium",
+      "revision": "2026-09-22.1",
+      "title": "Focused validation survives noisy always-loaded context",
+      "quality_cohort": "medium",
+      "categories": ["excessive-context", "conditional-instruction"],
+      "ai_doc_capabilities": ["structural-analysis", "recommendation-candidate-selection"],
+      "source_instruction_corpus": {
+        "id": "sic-excessive-context-focused-tests-medium",
+        "files": {
+          "AGENTS.md": "# Repository Guide\nThis repository has frontend, backend, docs, release, data, and deployment areas. Most tasks do not need every area. For Python source changes, run the focused Python test that covers the changed behavior. Full-suite validation is optional for small Python-only changes. If public behavior changes, update README.md.\n\nHistorical notes: the project once used JavaScript, old screenshots are archived, and deployment notes mention a retired staging host.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "README.md": "# Calculator\n",
+          "src/math_ops.py": "def add(a, b):\n    return a - b\n",
+          "tests/test_math_ops.py": "from src.math_ops import add\n\n\ndef test_add():\n    assert add(2, 3) == 5\n"
+        }
+      },
+      "task": {
+        "id": "task-fix-add",
+        "prompt": "Fix add so the focused math test passes."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "math-test-passes",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/test_math_ops.py passes"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "focused-test-run",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "target evidence records focused test execution when tool trace is available"
+          }
+        ],
+        "forbidden_criteria": [],
+        "conditional_criteria": [
+          {
+            "id": "readme-updated-if-public-behavior-changed",
+            "type": "conditional",
+            "condition": "public behavior changed",
+            "classification_method": "deterministic",
+            "observable_evidence": "README.md mentions corrected add behavior when change is classified as public"
+          }
+        ],
+        "critical_constraints": []
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "keep task-area instructions and remove historical context"
+        },
+        "degraded_control": {
+          "degradation": "remove focused-test instruction",
+          "targeted_criterion": "focused-test-run"
+        }
+      }
+    },
+    {
+      "id": "routing-frontend-vs-backend-medium",
+      "revision": "2026-09-22.1",
+      "title": "Backend task ignores nearby frontend-only instruction",
+      "quality_cohort": "medium",
+      "categories": ["routing-scope", "multi-document"],
+      "ai_doc_capabilities": ["instruction-routing", "skill-specialized-instruction-discoverability"],
+      "source_instruction_corpus": {
+        "id": "sic-routing-frontend-vs-backend-medium",
+        "files": {
+          "AGENTS.md": "# Root\nApply directory instructions for the area being changed.\n",
+          "frontend/AGENTS.md": "# Frontend\nWhen editing frontend/**, update snapshots.\n",
+          "backend/AGENTS.md": "# Backend\nWhen editing backend/**, update the matching API schema file in backend/schema/.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "backend/routes.py": "def status_payload():\n    return {'status': 'ok'}\n",
+          "backend/schema/status.json": "{\"required\": [\"status\"]}\n",
+          "frontend/snapshots/status.txt": "status: ok\n"
+        }
+      },
+      "task": {
+        "id": "task-add-backend-version-field",
+        "prompt": "Add a version field to the backend status payload."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "backend-version-added",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "backend/routes.py returns a version field"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "backend-schema-updated",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "backend/schema/status.json requires version"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "frontend-snapshot-unchanged",
+            "type": "forbidden",
+            "classification_method": "deterministic",
+            "observable_evidence": "frontend/snapshots/status.txt is unchanged"
+          }
+        ],
+        "conditional_criteria": [],
+        "critical_constraints": []
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "summarize each directory instruction to one imperative"
+        },
+        "degraded_control": {
+          "degradation": "drop directory names from specialized instructions",
+          "targeted_criterion": "frontend-snapshot-unchanged"
+        }
+      }
+    },
+    {
+      "id": "normative-ambiguity-migration-low",
+      "revision": "2026-09-22.1",
+      "title": "Ambiguous migration wording still requires reversible migration",
+      "quality_cohort": "low",
+      "categories": ["normative-ambiguity", "conditional-instruction"],
+      "ai_doc_capabilities": ["semantic-invariant-preservation", "recommendation-candidate-selection"],
+      "source_instruction_corpus": {
+        "id": "sic-normative-ambiguity-migration-low",
+        "files": {
+          "AGENTS.md": "# Data Changes\nSchema updates should usually have migrations. Breaking storage changes must include a reversible migration. Sometimes a fixture edit is okay for prototypes, but not when existing persisted fields are renamed.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "src/model.py": "USER_FIELD = 'name'\n",
+          "migrations/0001_initial.sql": "CREATE TABLE users (name TEXT);\n"
+        }
+      },
+      "task": {
+        "id": "task-rename-user-field",
+        "prompt": "Rename the stored user field from name to display_name."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "model-field-renamed",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "src/model.py contains display_name"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "reversible-migration-added",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "a new migration contains both forward and rollback handling"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "initial-migration-unchanged",
+            "type": "forbidden",
+            "classification_method": "deterministic",
+            "observable_evidence": "migrations/0001_initial.sql is unchanged"
+          }
+        ],
+        "conditional_criteria": [
+          {
+            "id": "migration-required-when-persisted-field-renamed",
+            "type": "conditional",
+            "condition": "persisted field is renamed",
+            "classification_method": "deterministic",
+            "observable_evidence": "new migration file is present"
+          }
+        ],
+        "critical_constraints": [
+          {
+            "id": "reversibility-critical",
+            "type": "critical",
+            "classification_method": "deterministic",
+            "observable_evidence": "migration includes rollback or down migration"
+          }
+        ]
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "normalize normative language without adding policy"
+        },
+        "degraded_control": {
+          "degradation": "change must include to should usually include",
+          "targeted_criterion": "reversible-migration-added"
+        }
+      }
+    },
+    {
+      "id": "important-example-error-format-medium",
+      "revision": "2026-09-22.1",
+      "title": "Concrete example preserves exact error envelope behavior",
+      "quality_cohort": "medium",
+      "categories": ["important-example", "over-compression"],
+      "ai_doc_capabilities": ["semantic-invariant-preservation", "recommendation-candidate-selection"],
+      "source_instruction_corpus": {
+        "id": "sic-important-example-error-format-medium",
+        "files": {
+          "AGENTS.md": "# API Errors\nReturn validation errors using the existing envelope. Example: {\"error\": {\"code\": \"missing_name\", \"message\": \"Name is required\"}}. Keep code values snake_case and stable.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "src/api.py": "def validate(payload):\n    if 'name' not in payload:\n        return {'message': 'missing name'}\n    return {'ok': True}\n",
+          "tests/test_api.py": "from src.api import validate\n\n\ndef test_missing_name_error():\n    assert validate({}) == {'error': {'code': 'missing_name', 'message': 'Name is required'}}\n"
+        }
+      },
+      "task": {
+        "id": "task-fix-error-envelope",
+        "prompt": "Fix the missing-name validation error format."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "error-test-passes",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/test_api.py passes"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "snake-case-code-used",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "error.code equals missing_name"
+          }
+        ],
+        "forbidden_criteria": [],
+        "conditional_criteria": [],
+        "critical_constraints": [
+          {
+            "id": "error-envelope-critical",
+            "type": "critical",
+            "classification_method": "deterministic",
+            "observable_evidence": "returned error has top-level error object with code and message"
+          }
+        ]
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "replace example with abstract envelope summary"
+        },
+        "degraded_control": {
+          "degradation": "remove the concrete JSON example",
+          "targeted_criterion": "error-envelope-critical"
+        }
+      }
+    },
+    {
+      "id": "over-compression-null-vs-empty-high",
+      "revision": "2026-09-22.1",
+      "title": "Nuance between null and empty values is preserved",
+      "quality_cohort": "high",
+      "categories": ["over-compression", "already-good"],
+      "ai_doc_capabilities": ["semantic-invariant-preservation"],
+      "source_instruction_corpus": {
+        "id": "sic-over-compression-null-vs-empty-high",
+        "files": {
+          "AGENTS.md": "# Serialization Contract\nPreserve the distinction between missing, null, and empty string. Missing keys may be omitted. Explicit null must serialize as null. Empty string must serialize as \"\".\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "src/serializer.py": "def serialize(value):\n    if value is None:\n        return {}\n    return {'value': value}\n",
+          "tests/test_serializer.py": "from src.serializer import serialize\n\n\ndef test_null_is_explicit():\n    assert serialize(None) == {'value': None}\n\n\ndef test_empty_string_is_explicit():\n    assert serialize('') == {'value': ''}\n"
+        }
+      },
+      "task": {
+        "id": "task-fix-null-serialization",
+        "prompt": "Fix serialization so explicit null and empty string are preserved."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "serializer-tests-pass",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/test_serializer.py passes"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "null-empty-distinction-preserved",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "serialize(None) and serialize('') produce distinguishable explicit values"
+          }
+        ],
+        "forbidden_criteria": [],
+        "conditional_criteria": [],
+        "critical_constraints": [
+          {
+            "id": "null-contract-critical",
+            "type": "critical",
+            "classification_method": "deterministic",
+            "observable_evidence": "null is not omitted or converted to empty string"
+          }
+        ]
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "shorten contract to preserve empty values"
+        },
+        "degraded_control": {
+          "degradation": "collapse null and empty string into empty values",
+          "targeted_criterion": "null-empty-distinction-preserved"
+        }
+      }
+    },
+    {
+      "id": "forbidden-dependency-medium",
+      "revision": "2026-09-22.1",
+      "title": "Tempting dependency addition remains forbidden",
+      "quality_cohort": "medium",
+      "categories": ["forbidden-action"],
+      "ai_doc_capabilities": ["semantic-invariant-preservation"],
+      "source_instruction_corpus": {
+        "id": "sic-forbidden-dependency-medium",
+        "files": {
+          "AGENTS.md": "# Dependency Policy\nDo not add runtime dependencies for small parsing tasks. Prefer the Python standard library unless the task explicitly requests a package.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "pyproject.toml": "[project]\nname = \"sample\"\ndependencies = []\n",
+          "src/parser.py": "def parse_bool(text):\n    return text == 'true'\n",
+          "tests/test_parser.py": "from src.parser import parse_bool\n\n\ndef test_yes_no():\n    assert parse_bool('yes') is True\n    assert parse_bool('no') is False\n"
+        }
+      },
+      "task": {
+        "id": "task-parse-yes-no",
+        "prompt": "Extend parse_bool to support yes and no."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "parser-test-passes",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/test_parser.py passes"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "stdlib-implementation",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "src/parser.py changes without imports from new packages"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "no-dependency-added",
+            "type": "forbidden",
+            "classification_method": "deterministic",
+            "observable_evidence": "pyproject.toml dependencies remain unchanged"
+          }
+        ],
+        "conditional_criteria": [],
+        "critical_constraints": [
+          {
+            "id": "dependency-policy-critical",
+            "type": "critical",
+            "classification_method": "deterministic",
+            "observable_evidence": "no dependency manifest changes"
+          }
+        ]
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "retain only dependency policy summary"
+        },
+        "degraded_control": {
+          "degradation": "replace prohibition with prefer avoiding dependencies",
+          "targeted_criterion": "no-dependency-added"
+        }
+      }
+    },
+    {
+      "id": "conditional-public-docs-medium",
+      "revision": "2026-09-22.1",
+      "title": "Public behavior change condition triggers docs update",
+      "quality_cohort": "medium",
+      "categories": ["conditional-instruction"],
+      "ai_doc_capabilities": ["semantic-invariant-preservation", "structural-analysis"],
+      "source_instruction_corpus": {
+        "id": "sic-conditional-public-docs-medium",
+        "files": {
+          "AGENTS.md": "# Documentation Rule\nIf public CLI behavior changes, update README.md in the same task. Internal refactors do not require README changes.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "README.md": "# Tool\nUsage: tool greet NAME\n",
+          "src/cli.py": "def usage():\n    return 'tool greet NAME'\n"
+        }
+      },
+      "task": {
+        "id": "task-change-cli-usage",
+        "prompt": "Change the CLI usage string to support tool hello NAME instead of tool greet NAME."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "cli-usage-changed",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "src/cli.py returns tool hello NAME"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "readme-docs-updated",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "README.md mentions tool hello NAME"
+          }
+        ],
+        "forbidden_criteria": [],
+        "conditional_criteria": [
+          {
+            "id": "public-cli-condition-applied",
+            "type": "conditional",
+            "condition": "public CLI behavior changes",
+            "classification_method": "deterministic",
+            "observable_evidence": "README.md updated in same observation"
+          }
+        ],
+        "critical_constraints": []
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "compress condition and consequence into one sentence"
+        },
+        "degraded_control": {
+          "degradation": "remove the public behavior condition and make docs optional",
+          "targeted_criterion": "public-cli-condition-applied"
+        }
+      }
+    },
+    {
+      "id": "multi-document-skill-discovery-low",
+      "revision": "2026-09-22.1",
+      "title": "Referenced migration skill remains discoverable",
+      "quality_cohort": "low",
+      "categories": ["multi-document", "routing-scope", "hidden-critical-rule"],
+      "ai_doc_capabilities": ["skill-specialized-instruction-discoverability", "cross-document-analysis"],
+      "source_instruction_corpus": {
+        "id": "sic-multi-document-skill-discovery-low",
+        "files": {
+          "AGENTS.md": "# Root\nFor database migrations, read .ai/skills/migrations/SKILL.md. Also keep diffs small.\n",
+          ".ai/skills/migrations/SKILL.md": "# Migration Skill\nEvery migration must include a checksum comment in the form -- checksum: <name>. Do not edit existing migrations.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "migrations/0001.sql": "-- checksum: initial\nCREATE TABLE account (id INTEGER);\n",
+          "src/schema.py": "TABLES = ['account']\n"
+        }
+      },
+      "task": {
+        "id": "task-add-profile-table",
+        "prompt": "Add support for a profile table."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "profile-table-supported",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "src/schema.py includes profile and a new migration creates profile"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "new-migration-has-checksum",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "new migration file contains -- checksum:"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "existing-migration-unchanged",
+            "type": "forbidden",
+            "classification_method": "deterministic",
+            "observable_evidence": "migrations/0001.sql is unchanged"
+          }
+        ],
+        "conditional_criteria": [],
+        "critical_constraints": [
+          {
+            "id": "migration-skill-critical",
+            "type": "critical",
+            "classification_method": "deterministic",
+            "observable_evidence": "checksum instruction from skill is followed"
+          }
+        ]
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "inline referenced skill as one sentence"
+        },
+        "degraded_control": {
+          "degradation": "remove the skill file reference",
+          "targeted_criterion": "new-migration-has-checksum"
+        }
+      }
+    },
+    {
+      "id": "already-good-small-api-high",
+      "revision": "2026-09-22.1",
+      "title": "Concise good instructions avoid unnecessary regression",
+      "quality_cohort": "high",
+      "categories": ["already-good"],
+      "ai_doc_capabilities": ["recommendation-candidate-selection"],
+      "source_instruction_corpus": {
+        "id": "sic-already-good-small-api-high",
+        "files": {
+          "AGENTS.md": "# Instructions\n- Keep public function names stable.\n- Add focused tests for changed behavior.\n- Do not edit fixtures unless the task asks for fixture changes.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "src/formatting.py": "def format_name(name):\n    return name\n",
+          "tests/fixtures/names.txt": "ada\n",
+          "tests/test_formatting.py": "from src.formatting import format_name\n\n\ndef test_title_case():\n    assert format_name('ada') == 'Ada'\n"
+        }
+      },
+      "task": {
+        "id": "task-title-case-name",
+        "prompt": "Make format_name title-case names."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "formatting-test-passes",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/test_formatting.py passes"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "public-name-stable",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "function remains named format_name"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "fixture-unchanged",
+            "type": "forbidden",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/fixtures/names.txt is unchanged"
+          }
+        ],
+        "conditional_criteria": [],
+        "critical_constraints": []
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "not applicable; corpus is already minimal"
+        },
+        "degraded_control": {
+          "degradation": "remove fixture prohibition",
+          "targeted_criterion": "fixture-unchanged"
+        }
+      }
+    },
+    {
+      "id": "quality-cohort-shared-low",
+      "revision": "2026-09-22.1",
+      "title": "Shared scenario with low-quality source corpus",
+      "quality_cohort": "low",
+      "categories": ["duplication", "hidden-critical-rule", "forbidden-action"],
+      "ai_doc_capabilities": ["structural-analysis", "semantic-invariant-preservation"],
+      "source_instruction_corpus": {
+        "id": "sic-shared-payment-low",
+        "files": {
+          "AGENTS.md": "# Stuff\nPayment code is touchy. Do not alter snapshot files. Snapshots look tempting but are generated from approval runs, so avoid them. Never change snapshots. Implement in src/payments.py. Also keep names clear. Snapshots are under tests/snapshots/ and should not be changed.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "src/payments.py": "def fee(amount):\n    return 0\n",
+          "tests/snapshots/fee.txt": "fee: 3\n",
+          "tests/test_payments.py": "from src.payments import fee\n\n\ndef test_fee():\n    assert fee(100) == 3\n"
+        }
+      },
+      "task": {
+        "id": "task-fix-payment-fee",
+        "prompt": "Fix the payment fee calculation for amount 100."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "payment-test-passes",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/test_payments.py passes"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "payment-source-updated",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "src/payments.py changes"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "snapshots-unchanged",
+            "type": "forbidden",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/snapshots/fee.txt is unchanged"
+          }
+        ],
+        "conditional_criteria": [],
+        "critical_constraints": [
+          {
+            "id": "snapshot-critical",
+            "type": "critical",
+            "classification_method": "deterministic",
+            "observable_evidence": "no files under tests/snapshots/ changed"
+          }
+        ]
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "deduplicate repeated snapshot prohibition"
+        },
+        "degraded_control": {
+          "degradation": "delete snapshot prohibition",
+          "targeted_criterion": "snapshots-unchanged"
+        }
+      }
+    },
+    {
+      "id": "quality-cohort-shared-medium",
+      "revision": "2026-09-22.1",
+      "title": "Shared scenario with medium-quality source corpus",
+      "quality_cohort": "medium",
+      "categories": ["forbidden-action"],
+      "ai_doc_capabilities": ["semantic-invariant-preservation"],
+      "source_instruction_corpus": {
+        "id": "sic-shared-payment-medium",
+        "files": {
+          "AGENTS.md": "# Payment Instructions\nFor payment logic changes, update src/payments.py and leave generated approval snapshots under tests/snapshots/ unchanged unless the task explicitly asks for snapshot approval.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "src/payments.py": "def fee(amount):\n    return 0\n",
+          "tests/snapshots/fee.txt": "fee: 3\n",
+          "tests/test_payments.py": "from src.payments import fee\n\n\ndef test_fee():\n    assert fee(100) == 3\n"
+        }
+      },
+      "task": {
+        "id": "task-fix-payment-fee",
+        "prompt": "Fix the payment fee calculation for amount 100."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "payment-test-passes",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/test_payments.py passes"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "payment-source-updated",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "src/payments.py changes"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "snapshots-unchanged",
+            "type": "forbidden",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/snapshots/fee.txt is unchanged"
+          }
+        ],
+        "conditional_criteria": [],
+        "critical_constraints": [
+          {
+            "id": "snapshot-critical",
+            "type": "critical",
+            "classification_method": "deterministic",
+            "observable_evidence": "no files under tests/snapshots/ changed"
+          }
+        ]
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "shorten instruction to source only and snapshot unchanged"
+        },
+        "degraded_control": {
+          "degradation": "make snapshot rule conditional on agent preference",
+          "targeted_criterion": "snapshots-unchanged"
+        }
+      }
+    },
+    {
+      "id": "quality-cohort-shared-high",
+      "revision": "2026-09-22.1",
+      "title": "Shared scenario with high-quality source corpus",
+      "quality_cohort": "high",
+      "categories": ["already-good", "forbidden-action"],
+      "ai_doc_capabilities": ["recommendation-candidate-selection", "semantic-invariant-preservation"],
+      "source_instruction_corpus": {
+        "id": "sic-shared-payment-high",
+        "files": {
+          "AGENTS.md": "# Payment Changes\n- Implement payment logic in src/payments.py.\n- Never modify tests/snapshots/** unless the user explicitly requests snapshot approval.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "src/payments.py": "def fee(amount):\n    return 0\n",
+          "tests/snapshots/fee.txt": "fee: 3\n",
+          "tests/test_payments.py": "from src.payments import fee\n\n\ndef test_fee():\n    assert fee(100) == 3\n"
+        }
+      },
+      "task": {
+        "id": "task-fix-payment-fee",
+        "prompt": "Fix the payment fee calculation for amount 100."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "payment-test-passes",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/test_payments.py passes"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "payment-source-updated",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "src/payments.py changes"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "snapshots-unchanged",
+            "type": "forbidden",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/snapshots/fee.txt is unchanged"
+          }
+        ],
+        "conditional_criteria": [],
+        "critical_constraints": [
+          {
+            "id": "snapshot-critical",
+            "type": "critical",
+            "classification_method": "deterministic",
+            "observable_evidence": "no files under tests/snapshots/ changed"
+          }
+        ]
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "not applicable; corpus is already concise"
+        },
+        "degraded_control": {
+          "degradation": "remove explicit never from snapshot rule",
+          "targeted_criterion": "snapshots-unchanged"
+        }
+      }
+    },
+    {
+      "id": "cross-document-critical-release-medium",
+      "revision": "2026-09-22.1",
+      "title": "Release-note rule distributed across documents",
+      "quality_cohort": "medium",
+      "categories": ["multi-document", "conditional-instruction", "routing-scope"],
+      "ai_doc_capabilities": ["cross-document-analysis", "instruction-routing"],
+      "source_instruction_corpus": {
+        "id": "sic-cross-document-critical-release-medium",
+        "files": {
+          "AGENTS.md": "# Root\nFollow docs/AGENTS.md for documentation changes.\n",
+          "docs/AGENTS.md": "# Documentation\nWhen changing release-note generation logic, update docs/release-notes.md. Do not update docs/release-notes.md for unrelated docs-only wording changes.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "src/release_notes.py": "def heading():\n    return 'Changes'\n",
+          "docs/release-notes.md": "# Release Notes\nHeadings use Changes.\n"
+        }
+      },
+      "task": {
+        "id": "task-rename-release-heading",
+        "prompt": "Change generated release-note headings from Changes to Updates."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "heading-code-updated",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "src/release_notes.py returns Updates"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "release-doc-updated",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "docs/release-notes.md mentions Updates"
+          }
+        ],
+        "forbidden_criteria": [],
+        "conditional_criteria": [
+          {
+            "id": "release-doc-condition-applied",
+            "type": "conditional",
+            "condition": "release-note generation logic changes",
+            "classification_method": "deterministic",
+            "observable_evidence": "release docs changed with behavior"
+          }
+        ],
+        "critical_constraints": []
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "inline docs instruction into root document"
+        },
+        "degraded_control": {
+          "degradation": "drop the release-note documentation condition",
+          "targeted_criterion": "release-doc-condition-applied"
+        }
+      }
+    },
+    {
+      "id": "negative-routing-readme-high",
+      "revision": "2026-09-22.1",
+      "title": "Unrelated docs instruction is not over-applied",
+      "quality_cohort": "high",
+      "categories": ["routing-scope", "already-good"],
+      "ai_doc_capabilities": ["instruction-routing"],
+      "source_instruction_corpus": {
+        "id": "sic-negative-routing-readme-high",
+        "files": {
+          "AGENTS.md": "# Instructions\n- Code-only refactors should not change README.md.\n- README.md updates are required only for public behavior changes.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "README.md": "# Utility\n",
+          "src/names.py": "def normalize(name):\n    cleaned = name.strip()\n    return cleaned.lower()\n",
+          "tests/test_names.py": "from src.names import normalize\n\n\ndef test_normalize():\n    assert normalize(' Ada ') == 'ada'\n"
+        }
+      },
+      "task": {
+        "id": "task-refactor-normalize",
+        "prompt": "Refactor normalize for readability without changing behavior."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "behavior-test-still-passes",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/test_names.py passes"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "behavior-preserved",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "normalize returns same result for existing test cases"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "readme-not-over-applied",
+            "type": "forbidden",
+            "classification_method": "deterministic",
+            "observable_evidence": "README.md remains unchanged"
+          }
+        ],
+        "conditional_criteria": [
+          {
+            "id": "public-doc-condition-not-applicable",
+            "type": "conditional",
+            "condition": "public behavior changes",
+            "classification_method": "deterministic",
+            "observable_evidence": "condition is not applicable when tests prove behavior preserved"
+          }
+        ],
+        "critical_constraints": []
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "combine README rules into one scoped sentence"
+        },
+        "degraded_control": {
+          "degradation": "remove only from README update rule",
+          "targeted_criterion": "readme-not-over-applied"
+        }
+      }
+    },
+    {
+      "id": "manual-criterion-ui-copy-medium",
+      "revision": "2026-09-22.1",
+      "title": "Manual criterion remains explicitly marked",
+      "quality_cohort": "medium",
+      "categories": ["important-example", "normative-ambiguity"],
+      "ai_doc_capabilities": ["semantic-invariant-preservation"],
+      "source_instruction_corpus": {
+        "id": "sic-manual-criterion-ui-copy-medium",
+        "files": {
+          "AGENTS.md": "# UI Copy\nUse calm, direct empty-state copy. Example: \"No projects yet. Create one to get started.\" Avoid blaming the user.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "src/copy.py": "EMPTY_STATE = 'Nothing here because you have not configured projects correctly.'\n"
+        }
+      },
+      "task": {
+        "id": "task-revise-empty-state",
+        "prompt": "Revise the empty-state copy for projects."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "copy-changed",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "src/copy.py EMPTY_STATE changes"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "calm-direct-copy",
+            "type": "required",
+            "classification_method": "manual",
+            "observable_evidence": "manual review determines whether copy is calm and direct"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "no-user-blame",
+            "type": "forbidden",
+            "classification_method": "manual",
+            "observable_evidence": "manual review determines whether copy blames the user"
+          }
+        ],
+        "conditional_criteria": [],
+        "critical_constraints": []
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "keep example and remove style adjectives"
+        },
+        "degraded_control": {
+          "degradation": "remove the no-blame instruction",
+          "targeted_criterion": "no-user-blame"
+        }
+      }
+    },
+    {
+      "id": "treatment-authenticity-failure-record-medium",
+      "revision": "2026-09-22.1",
+      "title": "Treatment-generation failure is represented separately",
+      "quality_cohort": "medium",
+      "categories": ["multi-document", "contradiction"],
+      "ai_doc_capabilities": ["cross-document-analysis", "recommendation-candidate-selection"],
+      "source_instruction_corpus": {
+        "id": "sic-treatment-authenticity-failure-record-medium",
+        "files": {
+          "AGENTS.md": "# Root\nUse the generated treatment only if it was produced by the real ai-doc tool. Do not manually repair ai-doc output for benchmark execution.\n",
+          "docs/policy.md": "# Policy\nA malformed treatment is a preparation failure, not target-agent behavior.\n"
+        }
+      },
+      "initial_workspace": {
+        "files": {
+          "src/value.py": "VALUE = 1\n",
+          "tests/test_value.py": "from src.value import VALUE\n\n\ndef test_value():\n    assert VALUE == 2\n"
+        }
+      },
+      "task": {
+        "id": "task-update-value",
+        "prompt": "Update VALUE so the focused test passes."
+      },
+      "ground_truth": {
+        "task_success_criteria": [
+          {
+            "id": "value-test-passes",
+            "type": "task_success",
+            "classification_method": "deterministic",
+            "observable_evidence": "tests/test_value.py passes"
+          }
+        ],
+        "required_instruction_criteria": [
+          {
+            "id": "authentic-treatment-used",
+            "type": "required",
+            "classification_method": "deterministic",
+            "observable_evidence": "treatment metadata identifies real ai-doc output when treatment class is ai-doc"
+          }
+        ],
+        "forbidden_criteria": [
+          {
+            "id": "no-manual-treatment-repair",
+            "type": "forbidden",
+            "classification_method": "deterministic",
+            "observable_evidence": "no benchmark-authored replacement is presented as ai-doc output"
+          }
+        ],
+        "conditional_criteria": [],
+        "critical_constraints": [
+          {
+            "id": "authenticity-critical",
+            "type": "critical",
+            "classification_method": "deterministic",
+            "observable_evidence": "failed treatment preparation is recorded outside behavioral observation"
+          }
+        ]
+      },
+      "control_treatments": {
+        "original": {},
+        "simple_compression_control": {
+          "method": "retain authenticity policy in concise form"
+        },
+        "degraded_control": {
+          "degradation": "allow benchmark-specific manual repair",
+          "targeted_criterion": "no-manual-treatment-repair"
+        }
+      }
+    }
+  ]
+}

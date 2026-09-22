@@ -1,0 +1,40 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Node and build outputs
+node_modules/
+dist/
+build/
+coverage/
+
+# Husky generated runtime shim
+.husky/_/
+
+# Local benchmark/runtime outputs
+.ai-doc-output/
+benchmark-runs/
+evidence/
+tmp/
+temp/
+
+# Local secrets and machine-specific config
+.env
+.env.*
+*.local

@@ -1,0 +1,16 @@
+{
+  "name": "ai-tools",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Umbrella workspace for AI tooling projects and benchmarks.",
+  "scripts": {
+    "init": "node scripts/install-gitmodules.mjs",
+    "postinstall": "node scripts/install-gitmodules.mjs",
+    "prepare": "husky",
+    "submodules:status": "node scripts/install-gitmodules.mjs --status-only",
+    "submodules:update": "node scripts/install-gitmodules.mjs --force"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}
