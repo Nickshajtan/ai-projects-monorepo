@@ -1,0 +1,140 @@
+﻿[
+    {
+        "tier":  "a0",
+        "fixture":  "already-good-negative",
+        "exit_code":  0,
+        "runtime_ms":  1379,
+        "finding_codes":  [
+
+                          ],
+        "stdout":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a0-fixtures\\already-good-negative\\check.stdout.json",
+        "stderr":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a0-fixtures\\already-good-negative\\check.stderr.txt"
+    },
+    {
+        "tier":  "a0",
+        "fixture":  "exact-dup-negative",
+        "exit_code":  0,
+        "runtime_ms":  1283,
+        "finding_codes":  [
+
+                          ],
+        "stdout":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a0-fixtures\\exact-dup-negative\\check.stdout.json",
+        "stderr":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a0-fixtures\\exact-dup-negative\\check.stderr.txt"
+    },
+    {
+        "tier":  "a0",
+        "fixture":  "exact-dup-positive",
+        "exit_code":  0,
+        "runtime_ms":  1319,
+        "finding_codes":  [
+                              "FINOPS_DUPLICATE_PARAGRAPH"
+                          ],
+        "stdout":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a0-fixtures\\exact-dup-positive\\check.stdout.json",
+        "stderr":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a0-fixtures\\exact-dup-positive\\check.stderr.txt"
+    },
+    {
+        "tier":  "a0",
+        "fixture":  "literal-contradiction-negative",
+        "exit_code":  0,
+        "runtime_ms":  1282,
+        "finding_codes":  [
+
+                          ],
+        "stdout":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a0-fixtures\\literal-contradiction-negative\\check.stdout.json",
+        "stderr":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a0-fixtures\\literal-contradiction-negative\\check.stderr.txt"
+    },
+    {
+        "tier":  "a0",
+        "fixture":  "literal-contradiction-positive",
+        "exit_code":  2,
+        "runtime_ms":  1263,
+        "finding_codes":  [
+                              "RISK_LITERAL_CONTRADICTION"
+                          ],
+        "stdout":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a0-fixtures\\literal-contradiction-positive\\check.stdout.json",
+        "stderr":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a0-fixtures\\literal-contradiction-positive\\check.stderr.txt"
+    },
+    {
+        "tier":  "a0",
+        "fixture":  "structure-positive",
+        "exit_code":  0,
+        "runtime_ms":  1269,
+        "finding_codes":  [
+                              "STRUCTURE_HEADING_JUMP"
+                          ],
+        "stdout":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a0-fixtures\\structure-positive\\check.stdout.json",
+        "stderr":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a0-fixtures\\structure-positive\\check.stderr.txt"
+    },
+    {
+        "tier":  "a1",
+        "fixture":  "already-good-semantic-negative",
+        "exit_code":  0,
+        "runtime_ms":  1284,
+        "finding_codes":  [
+                              "RISK_LOCAL_ML_UNAVAILABLE",
+                              "RISK_LOCAL_ML_UNAVAILABLE"
+                          ],
+        "stdout":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a1-fixtures\\already-good-semantic-negative\\check.stdout.json",
+        "stderr":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a1-fixtures\\already-good-semantic-negative\\check.stderr.txt"
+    },
+    {
+        "tier":  "a1",
+        "fixture":  "entailment-asymmetry",
+        "exit_code":  0,
+        "runtime_ms":  1247,
+        "finding_codes":  [
+                              "RISK_LOCAL_ML_UNAVAILABLE",
+                              "RISK_LOCAL_ML_UNAVAILABLE"
+                          ],
+        "stdout":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a1-fixtures\\entailment-asymmetry\\check.stdout.json",
+        "stderr":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a1-fixtures\\entailment-asymmetry\\check.stderr.txt"
+    },
+    {
+        "tier":  "a1",
+        "fixture":  "semantic-contradiction-hard-negative",
+        "exit_code":  0,
+        "runtime_ms":  1268,
+        "finding_codes":  [
+                              "RISK_LOCAL_ML_UNAVAILABLE",
+                              "RISK_LOCAL_ML_UNAVAILABLE"
+                          ],
+        "stdout":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a1-fixtures\\semantic-contradiction-hard-negative\\check.stdout.json",
+        "stderr":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a1-fixtures\\semantic-contradiction-hard-negative\\check.stderr.txt"
+    },
+    {
+        "tier":  "a1",
+        "fixture":  "semantic-contradiction-positive",
+        "exit_code":  0,
+        "runtime_ms":  1251,
+        "finding_codes":  [
+                              "RISK_LOCAL_ML_UNAVAILABLE",
+                              "RISK_LOCAL_ML_UNAVAILABLE"
+                          ],
+        "stdout":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a1-fixtures\\semantic-contradiction-positive\\check.stdout.json",
+        "stderr":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a1-fixtures\\semantic-contradiction-positive\\check.stderr.txt"
+    },
+    {
+        "tier":  "a1",
+        "fixture":  "semantic-duplicate-hard-negative",
+        "exit_code":  0,
+        "runtime_ms":  1281,
+        "finding_codes":  [
+                              "RISK_LOCAL_ML_UNAVAILABLE",
+                              "RISK_LOCAL_ML_UNAVAILABLE"
+                          ],
+        "stdout":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a1-fixtures\\semantic-duplicate-hard-negative\\check.stdout.json",
+        "stderr":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a1-fixtures\\semantic-duplicate-hard-negative\\check.stderr.txt"
+    },
+    {
+        "tier":  "a1",
+        "fixture":  "semantic-duplicate-positive",
+        "exit_code":  0,
+        "runtime_ms":  1196,
+        "finding_codes":  [
+                              "RISK_LOCAL_ML_UNAVAILABLE",
+                              "RISK_LOCAL_ML_UNAVAILABLE"
+                          ],
+        "stdout":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a1-fixtures\\semantic-duplicate-positive\\check.stdout.json",
+        "stderr":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\a1-fixtures\\semantic-duplicate-positive\\check.stderr.txt"
+    }
+]

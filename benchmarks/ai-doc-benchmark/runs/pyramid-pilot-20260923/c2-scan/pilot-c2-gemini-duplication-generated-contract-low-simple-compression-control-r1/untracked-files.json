@@ -1,0 +1,14 @@
+{
+  "files": [
+    {
+      "path": "src/__pycache__/api_contract.cpython-313.pyc",
+      "sha256": "b4c62ca278f2f62d85662f0550629176fd46246d94e3a4fb775886a073d501c6",
+      "text": null
+    },
+    {
+      "path": "tests/__pycache__/test_api_contract.cpython-313.pyc",
+      "sha256": "dac68f0f84b9862b48c20fc2224bd7b229e4cc967e8c4691c9f954fcb8aa719b",
+      "text": null
+    }
+  ]
+}

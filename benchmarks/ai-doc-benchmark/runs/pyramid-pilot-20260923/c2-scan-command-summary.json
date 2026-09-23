@@ -1,0 +1,272 @@
+﻿[
+    {
+        "observation_id":  "pilot-c2-codex-quality-cohort-shared-low-original-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "original",
+        "target":  "codex",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:46.9587985+03:00",
+        "runtime_seconds":  0.42
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-quality-cohort-shared-low-original-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "original",
+        "target":  "gemini",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:47.4939274+03:00",
+        "runtime_seconds":  0.29
+    },
+    {
+        "observation_id":  "pilot-c2-claude-quality-cohort-shared-low-original-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "original",
+        "target":  "claude",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:47.7953486+03:00",
+        "runtime_seconds":  0.28
+    },
+    {
+        "observation_id":  "pilot-c2-codex-quality-cohort-shared-low-degraded-control-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "degraded-control",
+        "target":  "codex",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:48.1020375+03:00",
+        "runtime_seconds":  0.29
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-quality-cohort-shared-low-degraded-control-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "degraded-control",
+        "target":  "gemini",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:48.3984637+03:00",
+        "runtime_seconds":  0.29
+    },
+    {
+        "observation_id":  "pilot-c2-claude-quality-cohort-shared-low-degraded-control-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "degraded-control",
+        "target":  "claude",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:48.6960626+03:00",
+        "runtime_seconds":  0.28
+    },
+    {
+        "observation_id":  "pilot-c2-codex-quality-cohort-shared-medium-original-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "original",
+        "target":  "codex",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:48.9819830+03:00",
+        "runtime_seconds":  0.28
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-quality-cohort-shared-medium-original-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "original",
+        "target":  "gemini",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:49.2785131+03:00",
+        "runtime_seconds":  0.3
+    },
+    {
+        "observation_id":  "pilot-c2-claude-quality-cohort-shared-medium-original-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "original",
+        "target":  "claude",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:49.5889975+03:00",
+        "runtime_seconds":  0.28
+    },
+    {
+        "observation_id":  "pilot-c2-codex-quality-cohort-shared-medium-degraded-control-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "degraded-control",
+        "target":  "codex",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:49.8831963+03:00",
+        "runtime_seconds":  0.28
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-quality-cohort-shared-medium-degraded-control-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "degraded-control",
+        "target":  "gemini",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:50.1713456+03:00",
+        "runtime_seconds":  0.28
+    },
+    {
+        "observation_id":  "pilot-c2-claude-quality-cohort-shared-medium-degraded-control-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "degraded-control",
+        "target":  "claude",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:50.4609437+03:00",
+        "runtime_seconds":  0.27
+    },
+    {
+        "observation_id":  "pilot-c2-codex-quality-cohort-shared-high-original-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "original",
+        "target":  "codex",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:50.7417904+03:00",
+        "runtime_seconds":  0.27
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-quality-cohort-shared-high-original-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "original",
+        "target":  "gemini",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:51.0229059+03:00",
+        "runtime_seconds":  0.28
+    },
+    {
+        "observation_id":  "pilot-c2-claude-quality-cohort-shared-high-original-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "original",
+        "target":  "claude",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:51.3138056+03:00",
+        "runtime_seconds":  0.29
+    },
+    {
+        "observation_id":  "pilot-c2-codex-quality-cohort-shared-high-degraded-control-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "degraded-control",
+        "target":  "codex",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:51.6303858+03:00",
+        "runtime_seconds":  0.28
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-quality-cohort-shared-high-degraded-control-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "degraded-control",
+        "target":  "gemini",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:51.9208877+03:00",
+        "runtime_seconds":  0.28
+    },
+    {
+        "observation_id":  "pilot-c2-claude-quality-cohort-shared-high-degraded-control-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "degraded-control",
+        "target":  "claude",
+        "command_exit":  1,
+        "started_at":  "2026-09-23T03:05:52.2099979+03:00",
+        "runtime_seconds":  0.29
+    },
+    {
+        "observation_id":  "pilot-c2-codex-duplication-generated-contract-low-original-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "original",
+        "target":  "codex",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T03:06:50.3728896+03:00",
+        "runtime_seconds":  19.21
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-duplication-generated-contract-low-original-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "original",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T03:07:09.6855486+03:00",
+        "runtime_seconds":  64.18
+    },
+    {
+        "observation_id":  "pilot-c2-claude-duplication-generated-contract-low-original-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "original",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T03:08:13.8716673+03:00",
+        "runtime_seconds":  66.57
+    },
+    {
+        "observation_id":  "pilot-c2-codex-duplication-generated-contract-low-degraded-control-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "degraded-control",
+        "target":  "codex",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T03:09:20.4519461+03:00",
+        "runtime_seconds":  18.72
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-duplication-generated-contract-low-degraded-control-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "degraded-control",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T03:09:39.1798932+03:00",
+        "runtime_seconds":  43.8
+    },
+    {
+        "observation_id":  "pilot-c2-claude-duplication-generated-contract-low-degraded-control-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "degraded-control",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T03:10:22.9881052+03:00",
+        "runtime_seconds":  61.86
+    },
+    {
+        "observation_id":  "pilot-c2-codex-duplication-generated-contract-low-simple-compression-control-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "simple-compression-control",
+        "target":  "codex",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T03:11:24.8523222+03:00",
+        "runtime_seconds":  19.15
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-duplication-generated-contract-low-simple-compression-control-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "simple-compression-control",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T03:11:44.0128683+03:00",
+        "runtime_seconds":  44.74
+    },
+    {
+        "observation_id":  "pilot-c2-claude-duplication-generated-contract-low-simple-compression-control-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "simple-compression-control",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T03:12:28.7629034+03:00",
+        "runtime_seconds":  64.51
+    },
+    {
+        "observation_id":  "pilot-c2-codex-duplication-generated-contract-low-ai-doc-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "ai-doc",
+        "target":  "codex",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T03:13:33.2837695+03:00",
+        "runtime_seconds":  20.29
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-duplication-generated-contract-low-ai-doc-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "ai-doc",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T03:13:53.5881404+03:00",
+        "runtime_seconds":  58.46
+    },
+    {
+        "observation_id":  "pilot-c2-claude-duplication-generated-contract-low-ai-doc-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "ai-doc",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T03:14:52.0605601+03:00",
+        "runtime_seconds":  59.37
+    }
+]

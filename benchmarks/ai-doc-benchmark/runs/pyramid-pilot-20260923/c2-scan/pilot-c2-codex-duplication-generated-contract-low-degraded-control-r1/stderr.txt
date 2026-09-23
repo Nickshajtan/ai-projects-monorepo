@@ -1,0 +1,35 @@
+Reading additional input from stdin...
+OpenAI Codex v0.155.1
+--------
+workdir: D:\AI\projects\benchmarks\ai-doc-benchmark\runs\pyramid-pilot-20260923\c2-scan\workspaces\pilot-c2-codex-duplication-generated-contract-low-degraded-control-r1-acuq7594
+model: gpt-5
+provider: openai
+approval: on-request
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 01a0cb98-7a74-7041-9026-0c51f2f2aec6
+--------
+user
+Implement task.md
+warning: Model metadata for `gpt-5` not found. Defaulting to fallback metadata; this can degrade performance and cause issues.
+2026-09-23T00:09:23.353218Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized, url: wss://api.openai.com/v1/responses
+2026-09-23T00:09:23.629109Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized, url: wss://api.openai.com/v1/responses
+2026-09-23T00:09:23.633449Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized, url: wss://api.openai.com/v1/responses
+2026-09-23T00:09:23.934653Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 2/5
+2026-09-23T00:09:24.426682Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 3/5
+2026-09-23T00:09:25.353735Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 4/5
+2026-09-23T00:09:27.141823Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized, url: wss://api.openai.com/v1/responses
+ERROR: Reconnecting... 5/5
+2026-09-23T00:09:30.243235Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized, url: wss://api.openai.com/v1/responses
+warning: Falling back from WebSockets to HTTPS transport. unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: wss://api.openai.com/v1/responses, cf-ray: a3f552204ebc2dea-KBP
+ERROR: Reconnecting... 1/5
+ERROR: Reconnecting... 2/5
+ERROR: Reconnecting... 3/5
+ERROR: Reconnecting... 4/5
+ERROR: Reconnecting... 5/5
+ERROR: unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: https://api.openai.com/v1/responses, cf-ray: a3f552526d54ca44-KBP, request id: req_f7e057269985468aadba9c586064b165
+ERROR: unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: https://api.openai.com/v1/responses, cf-ray: a3f552526d54ca44-KBP, request id: req_f7e057269985468aadba9c586064b165

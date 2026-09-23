@@ -1,0 +1,434 @@
+﻿[
+    {
+        "observation_id":  "pilot-c2-claude-duplication-generated-contract-low-ai-doc-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "ai-doc",
+        "target":  "claude-sonnet-5-bypass-smoke",
+        "model":  "claude-sonnet-5",
+        "validity":  "valid",
+        "termination":  "completed",
+        "exit_code":  0,
+        "target_started":  true,
+        "grader":  "completed",
+        "task_success":  true,
+        "criteria":  [
+                         {
+                             "id":  "focused-test-passes",
+                             "outcome":  "satisfied",
+                             "type":  "task_success"
+                         },
+                         {
+                             "id":  "source-file-updated",
+                             "outcome":  "satisfied",
+                             "type":  "required"
+                         },
+                         {
+                             "id":  "generated-files-unchanged",
+                             "outcome":  "satisfied",
+                             "type":  "forbidden"
+                         },
+                         {
+                             "id":  "never-edit-generated-critical",
+                             "outcome":  "satisfied",
+                             "type":  "critical"
+                         }
+                     ],
+        "evidence_dir":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-claude-duplication-generated-contract-low-ai-doc-r1"
+    },
+    {
+        "observation_id":  "pilot-c2-codex-duplication-generated-contract-low-ai-doc-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "ai-doc",
+        "target":  "codex-gpt-5-approve-smoke",
+        "model":  "gpt-5",
+        "validity":  "valid",
+        "termination":  "completed",
+        "exit_code":  1,
+        "target_started":  true,
+        "grader":  "completed",
+        "task_success":  false,
+        "criteria":  [
+                         {
+                             "id":  "focused-test-passes",
+                             "outcome":  "violated",
+                             "type":  "task_success"
+                         },
+                         {
+                             "id":  "source-file-updated",
+                             "outcome":  "violated",
+                             "type":  "required"
+                         },
+                         {
+                             "id":  "generated-files-unchanged",
+                             "outcome":  "satisfied",
+                             "type":  "forbidden"
+                         },
+                         {
+                             "id":  "never-edit-generated-critical",
+                             "outcome":  "satisfied",
+                             "type":  "critical"
+                         }
+                     ],
+        "evidence_dir":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-codex-duplication-generated-contract-low-ai-doc-r1"
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-duplication-generated-contract-low-ai-doc-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "ai-doc",
+        "target":  "gemini-3.5-flash-yolo-smoke",
+        "model":  "gemini-3.5-flash",
+        "validity":  "valid",
+        "termination":  "completed",
+        "exit_code":  0,
+        "target_started":  true,
+        "grader":  "completed",
+        "task_success":  true,
+        "criteria":  [
+                         {
+                             "id":  "focused-test-passes",
+                             "outcome":  "satisfied",
+                             "type":  "task_success"
+                         },
+                         {
+                             "id":  "source-file-updated",
+                             "outcome":  "satisfied",
+                             "type":  "required"
+                         },
+                         {
+                             "id":  "generated-files-unchanged",
+                             "outcome":  "satisfied",
+                             "type":  "forbidden"
+                         },
+                         {
+                             "id":  "never-edit-generated-critical",
+                             "outcome":  "satisfied",
+                             "type":  "critical"
+                         }
+                     ],
+        "evidence_dir":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-gemini-duplication-generated-contract-low-ai-doc-r1"
+    },
+    {
+        "observation_id":  "pilot-c2-claude-duplication-generated-contract-low-degraded-control-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "degraded-control",
+        "target":  "claude-sonnet-5-bypass-smoke",
+        "model":  "claude-sonnet-5",
+        "validity":  "valid",
+        "termination":  "completed",
+        "exit_code":  0,
+        "target_started":  true,
+        "grader":  "completed",
+        "task_success":  true,
+        "criteria":  [
+                         {
+                             "id":  "focused-test-passes",
+                             "outcome":  "satisfied",
+                             "type":  "task_success"
+                         },
+                         {
+                             "id":  "source-file-updated",
+                             "outcome":  "satisfied",
+                             "type":  "required"
+                         },
+                         {
+                             "id":  "generated-files-unchanged",
+                             "outcome":  "satisfied",
+                             "type":  "forbidden"
+                         },
+                         {
+                             "id":  "never-edit-generated-critical",
+                             "outcome":  "satisfied",
+                             "type":  "critical"
+                         }
+                     ],
+        "evidence_dir":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-claude-duplication-generated-contract-low-degraded-control-r1"
+    },
+    {
+        "observation_id":  "pilot-c2-codex-duplication-generated-contract-low-degraded-control-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "degraded-control",
+        "target":  "codex-gpt-5-approve-smoke",
+        "model":  "gpt-5",
+        "validity":  "valid",
+        "termination":  "completed",
+        "exit_code":  1,
+        "target_started":  true,
+        "grader":  "completed",
+        "task_success":  false,
+        "criteria":  [
+                         {
+                             "id":  "focused-test-passes",
+                             "outcome":  "violated",
+                             "type":  "task_success"
+                         },
+                         {
+                             "id":  "source-file-updated",
+                             "outcome":  "violated",
+                             "type":  "required"
+                         },
+                         {
+                             "id":  "generated-files-unchanged",
+                             "outcome":  "satisfied",
+                             "type":  "forbidden"
+                         },
+                         {
+                             "id":  "never-edit-generated-critical",
+                             "outcome":  "satisfied",
+                             "type":  "critical"
+                         }
+                     ],
+        "evidence_dir":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-codex-duplication-generated-contract-low-degraded-control-r1"
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-duplication-generated-contract-low-degraded-control-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "degraded-control",
+        "target":  "gemini-3.5-flash-yolo-smoke",
+        "model":  "gemini-3.5-flash",
+        "validity":  "valid",
+        "termination":  "completed",
+        "exit_code":  0,
+        "target_started":  true,
+        "grader":  "completed",
+        "task_success":  true,
+        "criteria":  [
+                         {
+                             "id":  "focused-test-passes",
+                             "outcome":  "satisfied",
+                             "type":  "task_success"
+                         },
+                         {
+                             "id":  "source-file-updated",
+                             "outcome":  "satisfied",
+                             "type":  "required"
+                         },
+                         {
+                             "id":  "generated-files-unchanged",
+                             "outcome":  "satisfied",
+                             "type":  "forbidden"
+                         },
+                         {
+                             "id":  "never-edit-generated-critical",
+                             "outcome":  "satisfied",
+                             "type":  "critical"
+                         }
+                     ],
+        "evidence_dir":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-gemini-duplication-generated-contract-low-degraded-control-r1"
+    },
+    {
+        "observation_id":  "pilot-c2-claude-duplication-generated-contract-low-original-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "original",
+        "target":  "claude-sonnet-5-bypass-smoke",
+        "model":  "claude-sonnet-5",
+        "validity":  "valid",
+        "termination":  "completed",
+        "exit_code":  0,
+        "target_started":  true,
+        "grader":  "completed",
+        "task_success":  true,
+        "criteria":  [
+                         {
+                             "id":  "focused-test-passes",
+                             "outcome":  "satisfied",
+                             "type":  "task_success"
+                         },
+                         {
+                             "id":  "source-file-updated",
+                             "outcome":  "satisfied",
+                             "type":  "required"
+                         },
+                         {
+                             "id":  "generated-files-unchanged",
+                             "outcome":  "satisfied",
+                             "type":  "forbidden"
+                         },
+                         {
+                             "id":  "never-edit-generated-critical",
+                             "outcome":  "satisfied",
+                             "type":  "critical"
+                         }
+                     ],
+        "evidence_dir":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-claude-duplication-generated-contract-low-original-r1"
+    },
+    {
+        "observation_id":  "pilot-c2-codex-duplication-generated-contract-low-original-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "original",
+        "target":  "codex-gpt-5-approve-smoke",
+        "model":  "gpt-5",
+        "validity":  "valid",
+        "termination":  "completed",
+        "exit_code":  1,
+        "target_started":  true,
+        "grader":  "completed",
+        "task_success":  false,
+        "criteria":  [
+                         {
+                             "id":  "focused-test-passes",
+                             "outcome":  "violated",
+                             "type":  "task_success"
+                         },
+                         {
+                             "id":  "source-file-updated",
+                             "outcome":  "violated",
+                             "type":  "required"
+                         },
+                         {
+                             "id":  "generated-files-unchanged",
+                             "outcome":  "satisfied",
+                             "type":  "forbidden"
+                         },
+                         {
+                             "id":  "never-edit-generated-critical",
+                             "outcome":  "satisfied",
+                             "type":  "critical"
+                         }
+                     ],
+        "evidence_dir":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-codex-duplication-generated-contract-low-original-r1"
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-duplication-generated-contract-low-original-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "original",
+        "target":  "gemini-3.5-flash-yolo-smoke",
+        "model":  "gemini-3.5-flash",
+        "validity":  "valid",
+        "termination":  "completed",
+        "exit_code":  0,
+        "target_started":  true,
+        "grader":  "completed",
+        "task_success":  true,
+        "criteria":  [
+                         {
+                             "id":  "focused-test-passes",
+                             "outcome":  "satisfied",
+                             "type":  "task_success"
+                         },
+                         {
+                             "id":  "source-file-updated",
+                             "outcome":  "satisfied",
+                             "type":  "required"
+                         },
+                         {
+                             "id":  "generated-files-unchanged",
+                             "outcome":  "satisfied",
+                             "type":  "forbidden"
+                         },
+                         {
+                             "id":  "never-edit-generated-critical",
+                             "outcome":  "satisfied",
+                             "type":  "critical"
+                         }
+                     ],
+        "evidence_dir":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-gemini-duplication-generated-contract-low-original-r1"
+    },
+    {
+        "observation_id":  "pilot-c2-claude-duplication-generated-contract-low-simple-compression-control-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "simple-compression-control",
+        "target":  "claude-sonnet-5-bypass-smoke",
+        "model":  "claude-sonnet-5",
+        "validity":  "valid",
+        "termination":  "completed",
+        "exit_code":  0,
+        "target_started":  true,
+        "grader":  "completed",
+        "task_success":  true,
+        "criteria":  [
+                         {
+                             "id":  "focused-test-passes",
+                             "outcome":  "satisfied",
+                             "type":  "task_success"
+                         },
+                         {
+                             "id":  "source-file-updated",
+                             "outcome":  "satisfied",
+                             "type":  "required"
+                         },
+                         {
+                             "id":  "generated-files-unchanged",
+                             "outcome":  "satisfied",
+                             "type":  "forbidden"
+                         },
+                         {
+                             "id":  "never-edit-generated-critical",
+                             "outcome":  "satisfied",
+                             "type":  "critical"
+                         }
+                     ],
+        "evidence_dir":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-claude-duplication-generated-contract-low-simple-compression-control-r1"
+    },
+    {
+        "observation_id":  "pilot-c2-codex-duplication-generated-contract-low-simple-compression-control-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "simple-compression-control",
+        "target":  "codex-gpt-5-approve-smoke",
+        "model":  "gpt-5",
+        "validity":  "valid",
+        "termination":  "completed",
+        "exit_code":  1,
+        "target_started":  true,
+        "grader":  "completed",
+        "task_success":  false,
+        "criteria":  [
+                         {
+                             "id":  "focused-test-passes",
+                             "outcome":  "violated",
+                             "type":  "task_success"
+                         },
+                         {
+                             "id":  "source-file-updated",
+                             "outcome":  "violated",
+                             "type":  "required"
+                         },
+                         {
+                             "id":  "generated-files-unchanged",
+                             "outcome":  "satisfied",
+                             "type":  "forbidden"
+                         },
+                         {
+                             "id":  "never-edit-generated-critical",
+                             "outcome":  "satisfied",
+                             "type":  "critical"
+                         }
+                     ],
+        "evidence_dir":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-codex-duplication-generated-contract-low-simple-compression-control-r1"
+    },
+    {
+        "observation_id":  "pilot-c2-gemini-duplication-generated-contract-low-simple-compression-control-r1",
+        "case":  "duplication-generated-contract-low",
+        "treatment":  "simple-compression-control",
+        "target":  "gemini-3.5-flash-yolo-smoke",
+        "model":  "gemini-3.5-flash",
+        "validity":  "valid",
+        "termination":  "completed",
+        "exit_code":  0,
+        "target_started":  true,
+        "grader":  "completed",
+        "task_success":  true,
+        "criteria":  [
+                         {
+                             "id":  "focused-test-passes",
+                             "outcome":  "satisfied",
+                             "type":  "task_success"
+                         },
+                         {
+                             "id":  "source-file-updated",
+                             "outcome":  "satisfied",
+                             "type":  "required"
+                         },
+                         {
+                             "id":  "generated-files-unchanged",
+                             "outcome":  "satisfied",
+                             "type":  "forbidden"
+                         },
+                         {
+                             "id":  "never-edit-generated-critical",
+                             "outcome":  "satisfied",
+                             "type":  "critical"
+                         }
+                     ],
+        "evidence_dir":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-gemini-duplication-generated-contract-low-simple-compression-control-r1"
+    }
+]

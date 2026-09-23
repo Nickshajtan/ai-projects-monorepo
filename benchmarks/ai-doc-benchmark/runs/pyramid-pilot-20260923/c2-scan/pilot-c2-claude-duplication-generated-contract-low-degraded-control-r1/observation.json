@@ -1,0 +1,96 @@
+{
+  "observation_id": "pilot-c2-claude-duplication-generated-contract-low-degraded-control-r1",
+  "benchmark_version": "0.1",
+  "case": {
+    "id": "duplication-generated-contract-low",
+    "revision": "2026-09-22.1",
+    "categories": [
+      "duplication",
+      "forbidden-action"
+    ],
+    "quality_cohort": "low",
+    "source_corpus": "sic-duplication-generated-contract-low",
+    "task": "task-update-endpoint-source"
+  },
+  "treatment": {
+    "class": "degraded-control",
+    "configuration": "weaken the generated-file prohibition to a preference",
+    "resulting_corpus": "sic-duplication-generated-contract-low:degraded-control",
+    "artifact_sha256": "0c1947511b2a037abb9386a18f95747ed46c08d6c2891e5b6ce7b02ab9099a10"
+  },
+  "target": {
+    "provider": "claude-sonnet-5-bypass-smoke",
+    "model": "claude-sonnet-5",
+    "configuration": {
+      "args": [
+        "--print",
+        "--output-format",
+        "json",
+        "--model",
+        "sonnet",
+        "--permission-mode",
+        "bypassPermissions"
+      ],
+      "timeout_seconds": 600.0
+    },
+    "tool_version": "claude-code 2.1.280"
+  },
+  "repetition": {
+    "index": 1
+  },
+  "validity": {
+    "status": "valid",
+    "reason": null
+  },
+  "behavior": {
+    "task_success": true,
+    "criteria": [
+      {
+        "id": "focused-test-passes",
+        "type": "task_success",
+        "outcome": "satisfied",
+        "evidence": "tests/test_api_contract.py passed"
+      },
+      {
+        "id": "source-file-updated",
+        "type": "required",
+        "outcome": "satisfied",
+        "evidence": "src/api_contract.py contains accounts"
+      },
+      {
+        "id": "generated-files-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "generated/api_client.py matches baseline"
+      },
+      {
+        "id": "never-edit-generated-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "generated/api_client.py byte-identical to baseline"
+      }
+    ]
+  },
+  "instructions": {
+    "corpus": "sic-duplication-generated-contract-low:degraded-control",
+    "bytes": 308,
+    "tokens": {
+      "status": "unavailable",
+      "value": null
+    }
+  },
+  "execution": {
+    "exit_code": 0,
+    "duration_seconds": 60.95534609997412,
+    "termination_status": "completed",
+    "timeout": false,
+    "target_started": true,
+    "monorepo_commit": "de34e9e4b6a040cee0ab87b517c8bf6b0b1c2c13"
+  },
+  "evidence": {
+    "task": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-claude-duplication-generated-contract-low-degraded-control-r1\\task.md",
+    "instruction_corpus": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-claude-duplication-generated-contract-low-degraded-control-r1\\treatment.json",
+    "workspace_diff": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-claude-duplication-generated-contract-low-degraded-control-r1\\workspace.diff",
+    "grading_evidence": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-claude-duplication-generated-contract-low-degraded-control-r1\\grading.json"
+  }
+}

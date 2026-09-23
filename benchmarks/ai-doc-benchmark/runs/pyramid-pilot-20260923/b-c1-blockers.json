@@ -1,0 +1,14 @@
+﻿[
+    {
+        "tier":  "B",
+        "status":  "BLOCKED_BY_PRODUCT_INTERFACE",
+        "reason":  "Current production B interfaces are check --deep and optimize semantic/pairwise paths. There is no standalone blinded baseline-vs-candidate judge for benchmark treatment artifacts without converting benchmark cases into ai-doc evaluation suites or driving optimizer search semantics.",
+        "blocker_type":  "substantial_new_infrastructure"
+    },
+    {
+        "tier":  "C1",
+        "status":  "DEFER_C1",
+        "reason":  "Current production C1 requires AI_DOC_TARGET_COMMAND JSON stdin/stdout. Existing qualified Codex/Gemini/Claude C2 target configs are native natural-language task.md CLIs, not JSON planning adapters.",
+        "blocker_type":  "target_command_adapter_required"
+    }
+]

@@ -1,0 +1,9 @@
+{
+  "observation_id": "pilot-c2-claude-quality-cohort-shared-high-original-r1",
+  "benchmark_version": "0.1",
+  "case_id": "quality-cohort-shared-high",
+  "case_revision": "2026-09-22.1",
+  "treatment": "original",
+  "failure_class": "treatment-preparation",
+  "reason": "original does not define a deterministic treatment artifact"
+}

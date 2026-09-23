@@ -1,0 +1,19 @@
+{
+  "command": [
+    "C:\\Users\\38098\\.local\\bin\\claude.exe",
+    "--print",
+    "--output-format",
+    "json",
+    "--model",
+    "sonnet",
+    "--permission-mode",
+    "bypassPermissions",
+    "Implement task.md"
+  ],
+  "cwd": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\workspaces\\pilot-c2-claude-duplication-generated-contract-low-simple-compression-control-r1-bmjx0007",
+  "exit_code": 0,
+  "termination_status": "completed",
+  "timeout": false,
+  "duration_seconds": 63.602441199996974,
+  "target_started": true
+}

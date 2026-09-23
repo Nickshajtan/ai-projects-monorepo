@@ -1,0 +1,97 @@
+{
+  "observation_id": "pilot-c2-gemini-duplication-generated-contract-low-simple-compression-control-r1",
+  "benchmark_version": "0.1",
+  "case": {
+    "id": "duplication-generated-contract-low",
+    "revision": "2026-09-22.1",
+    "categories": [
+      "duplication",
+      "forbidden-action"
+    ],
+    "quality_cohort": "low",
+    "source_corpus": "sic-duplication-generated-contract-low",
+    "task": "task-update-endpoint-source"
+  },
+  "treatment": {
+    "class": "simple-compression-control",
+    "configuration": "remove repeated sentences while retaining one generated-file prohibition",
+    "resulting_corpus": "sic-duplication-generated-contract-low:simple-compression-control",
+    "artifact_sha256": "10a09b57c8530dd659854e03cd20878c966b77896427b771fb487faf68b13afe"
+  },
+  "target": {
+    "provider": "gemini-3.5-flash-yolo-smoke",
+    "model": "gemini-3.5-flash",
+    "configuration": {
+      "args": [
+        "--model",
+        "gemini-3.5-flash",
+        "--approval-mode",
+        "yolo",
+        "--skip-trust",
+        "--output-format",
+        "json",
+        "--prompt"
+      ],
+      "timeout_seconds": 600.0
+    },
+    "tool_version": "gemini-cli 0.55.1"
+  },
+  "repetition": {
+    "index": 1
+  },
+  "validity": {
+    "status": "valid",
+    "reason": null
+  },
+  "behavior": {
+    "task_success": true,
+    "criteria": [
+      {
+        "id": "focused-test-passes",
+        "type": "task_success",
+        "outcome": "satisfied",
+        "evidence": "tests/test_api_contract.py passed"
+      },
+      {
+        "id": "source-file-updated",
+        "type": "required",
+        "outcome": "satisfied",
+        "evidence": "src/api_contract.py contains accounts"
+      },
+      {
+        "id": "generated-files-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "generated/api_client.py matches baseline"
+      },
+      {
+        "id": "never-edit-generated-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "generated/api_client.py byte-identical to baseline"
+      }
+    ]
+  },
+  "instructions": {
+    "corpus": "sic-duplication-generated-contract-low:simple-compression-control",
+    "bytes": 346,
+    "tokens": {
+      "status": "unavailable",
+      "value": null
+    }
+  },
+  "execution": {
+    "exit_code": 0,
+    "duration_seconds": 43.877633000025526,
+    "termination_status": "completed",
+    "timeout": false,
+    "target_started": true,
+    "monorepo_commit": "de34e9e4b6a040cee0ab87b517c8bf6b0b1c2c13"
+  },
+  "evidence": {
+    "task": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-gemini-duplication-generated-contract-low-simple-compression-control-r1\\task.md",
+    "instruction_corpus": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-gemini-duplication-generated-contract-low-simple-compression-control-r1\\treatment.json",
+    "workspace_diff": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-gemini-duplication-generated-contract-low-simple-compression-control-r1\\workspace.diff",
+    "grading_evidence": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\pilot-c2-gemini-duplication-generated-contract-low-simple-compression-control-r1\\grading.json"
+  }
+}

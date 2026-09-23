@@ -1,0 +1,30 @@
+{
+  "task_success": true,
+  "criteria": [
+    {
+      "id": "focused-test-passes",
+      "type": "task_success",
+      "outcome": "satisfied",
+      "evidence": "tests/test_api_contract.py passed"
+    },
+    {
+      "id": "source-file-updated",
+      "type": "required",
+      "outcome": "satisfied",
+      "evidence": "src/api_contract.py contains accounts"
+    },
+    {
+      "id": "generated-files-unchanged",
+      "type": "forbidden",
+      "outcome": "satisfied",
+      "evidence": "generated/api_client.py matches baseline"
+    },
+    {
+      "id": "never-edit-generated-critical",
+      "type": "critical",
+      "outcome": "satisfied",
+      "evidence": "generated/api_client.py byte-identical to baseline"
+    }
+  ],
+  "grader_status": "completed"
+}

@@ -1,0 +1,9 @@
+{
+  "class": "original",
+  "configuration": "source",
+  "resulting_corpus": "sic-duplication-generated-contract-low:original",
+  "artifact_sha256": "3fa56e31f6d5f1c9241a14b73cd4ecac251b3d1cc93247be4b5026998eca6616",
+  "provenance": {
+    "artifact_source": "benchmark-data"
+  }
+}

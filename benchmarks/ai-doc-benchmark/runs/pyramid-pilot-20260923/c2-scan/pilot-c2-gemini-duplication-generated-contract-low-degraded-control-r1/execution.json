@@ -1,0 +1,20 @@
+{
+  "command": [
+    "C:\\Users\\38098\\AppData\\Roaming\\npm\\gemini.cmd",
+    "--model",
+    "gemini-3.5-flash",
+    "--approval-mode",
+    "yolo",
+    "--skip-trust",
+    "--output-format",
+    "json",
+    "--prompt",
+    "Implement task.md"
+  ],
+  "cwd": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-20260923\\c2-scan\\workspaces\\pilot-c2-gemini-duplication-generated-contract-low-degraded-control-r1-qy2szfdn",
+  "exit_code": 0,
+  "termination_status": "completed",
+  "timeout": false,
+  "duration_seconds": 42.99487260001479,
+  "target_started": true
+}
