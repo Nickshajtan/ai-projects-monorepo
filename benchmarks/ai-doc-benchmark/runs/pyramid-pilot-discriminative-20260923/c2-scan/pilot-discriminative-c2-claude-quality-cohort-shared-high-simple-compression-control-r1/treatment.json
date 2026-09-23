@@ -1,0 +1,9 @@
+{
+  "class": "simple-compression-control",
+  "configuration": "combine concise payment and snapshot rules into one sentence",
+  "resulting_corpus": "sic-shared-payment-high:simple-compression-control",
+  "artifact_sha256": "79d50924aa2ace2f39c630d57e735c4b95b10d30853572e1aaa6f941271f263f",
+  "provenance": {
+    "artifact_source": "benchmark-data"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "class": "simple-compression-control",
+  "configuration": "deduplicate repeated snapshot prohibition",
+  "resulting_corpus": "sic-shared-payment-low:simple-compression-control",
+  "artifact_sha256": "7e241d9f00f5e8b7c4141173ec5b719b57edd1d3bf9a46f8a57c8df153466d30",
+  "provenance": {
+    "artifact_source": "benchmark-data"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "C:\\Users\\38098\\AppData\\Roaming\\npm\\gemini.cmd",
+    "--model",
+    "gemini-3.5-flash",
+    "--approval-mode",
+    "yolo",
+    "--skip-trust",
+    "--output-format",
+    "json",
+    "--prompt",
+    "Implement task.md"
+  ],
+  "cwd": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-discriminative-20260923\\c2-scan\\workspaces\\pilot-discriminative-c2-gemini-quality-cohort-shared-medium-ai-doc-r1-n9tame7d",
+  "exit_code": 0,
+  "termination_status": "completed",
+  "timeout": false,
+  "duration_seconds": 80.67175189999398,
+  "target_started": true
+}

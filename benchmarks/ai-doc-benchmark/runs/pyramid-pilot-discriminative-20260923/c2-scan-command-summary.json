@@ -1,0 +1,218 @@
+﻿[
+    {
+        "observation_id":  "pilot-discriminative-c2-gemini-quality-cohort-shared-low-original-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "original",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:27:38.5348773+03:00",
+        "runtime_seconds":  81.11
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-claude-quality-cohort-shared-low-original-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "original",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:28:59.7403193+03:00",
+        "runtime_seconds":  53.16
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-gemini-quality-cohort-shared-low-degraded-control-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "degraded-control",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:29:52.9108358+03:00",
+        "runtime_seconds":  53.67
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-claude-quality-cohort-shared-low-degraded-control-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "degraded-control",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:30:46.6035470+03:00",
+        "runtime_seconds":  61.52
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-gemini-quality-cohort-shared-low-simple-compression-control-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "simple-compression-control",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:31:48.1348322+03:00",
+        "runtime_seconds":  85.1
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-claude-quality-cohort-shared-low-simple-compression-control-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "simple-compression-control",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:33:13.2399792+03:00",
+        "runtime_seconds":  57.58
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-gemini-quality-cohort-shared-low-ai-doc-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "ai-doc",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:34:10.8320850+03:00",
+        "runtime_seconds":  76.76
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-claude-quality-cohort-shared-low-ai-doc-r1",
+        "case":  "quality-cohort-shared-low",
+        "treatment":  "ai-doc",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:35:27.5968309+03:00",
+        "runtime_seconds":  60.72
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-gemini-quality-cohort-shared-medium-original-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "original",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:36:28.3289993+03:00",
+        "runtime_seconds":  62.38
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-claude-quality-cohort-shared-medium-original-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "original",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:37:30.7185807+03:00",
+        "runtime_seconds":  62.64
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-gemini-quality-cohort-shared-medium-degraded-control-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "degraded-control",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:38:33.3720576+03:00",
+        "runtime_seconds":  63.39
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-claude-quality-cohort-shared-medium-degraded-control-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "degraded-control",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:39:36.7677827+03:00",
+        "runtime_seconds":  58.25
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-gemini-quality-cohort-shared-medium-simple-compression-control-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "simple-compression-control",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:40:35.0224773+03:00",
+        "runtime_seconds":  45.99
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-claude-quality-cohort-shared-medium-simple-compression-control-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "simple-compression-control",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:41:21.0237875+03:00",
+        "runtime_seconds":  62.87
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-gemini-quality-cohort-shared-medium-ai-doc-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "ai-doc",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:42:23.9023721+03:00",
+        "runtime_seconds":  83.16
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-claude-quality-cohort-shared-medium-ai-doc-r1",
+        "case":  "quality-cohort-shared-medium",
+        "treatment":  "ai-doc",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:43:47.0748863+03:00",
+        "runtime_seconds":  64.21
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-gemini-quality-cohort-shared-high-original-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "original",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:44:51.2878050+03:00",
+        "runtime_seconds":  52.75
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-claude-quality-cohort-shared-high-original-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "original",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:45:44.0443235+03:00",
+        "runtime_seconds":  64.77
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-gemini-quality-cohort-shared-high-degraded-control-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "degraded-control",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:46:48.8199664+03:00",
+        "runtime_seconds":  93.66
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-claude-quality-cohort-shared-high-degraded-control-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "degraded-control",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:48:22.4857875+03:00",
+        "runtime_seconds":  61.37
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-gemini-quality-cohort-shared-high-simple-compression-control-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "simple-compression-control",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:49:23.8667816+03:00",
+        "runtime_seconds":  64
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-claude-quality-cohort-shared-high-simple-compression-control-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "simple-compression-control",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:50:27.8720587+03:00",
+        "runtime_seconds":  58.69
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-gemini-quality-cohort-shared-high-ai-doc-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "ai-doc",
+        "target":  "gemini",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:51:26.5671128+03:00",
+        "runtime_seconds":  64.97
+    },
+    {
+        "observation_id":  "pilot-discriminative-c2-claude-quality-cohort-shared-high-ai-doc-r1",
+        "case":  "quality-cohort-shared-high",
+        "treatment":  "ai-doc",
+        "target":  "claude",
+        "command_exit":  0,
+        "started_at":  "2026-09-23T04:52:31.5408191+03:00",
+        "runtime_seconds":  55.56
+    }
+]

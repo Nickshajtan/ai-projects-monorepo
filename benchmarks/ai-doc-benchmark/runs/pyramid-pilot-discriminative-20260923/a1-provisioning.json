@@ -1,0 +1,18 @@
+﻿{
+    "status":  "A1_PROVISIONING_BLOCKED",
+    "attempted_method":  "projects/ai-doc/.venv/Scripts/python.exe -m pip install -e \"projects/ai-doc[ml]\"",
+    "result":  "interrupted after prolonged silent install phase",
+    "installed":  {
+                      "transformers":  false,
+                      "sentence_transformers":  false,
+                      "torch":  true
+                  },
+    "model_ids":  [
+                      "sentence-transformers/all-MiniLM-L6-v2",
+                      "cross-encoder/nli-deberta-v3-small"
+                  ],
+    "thresholds":  {
+                       "nli_confidence_threshold":  0.9,
+                       "similarity_threshold":  0.9
+                   }
+}

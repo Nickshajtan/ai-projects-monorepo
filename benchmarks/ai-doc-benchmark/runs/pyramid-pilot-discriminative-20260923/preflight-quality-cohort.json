@@ -1,0 +1,506 @@
+[
+  {
+    "case": "quality-cohort-shared-low",
+    "treatment": "original",
+    "prepared": true,
+    "workspace_created": true,
+    "grader_executed": true,
+    "artifact_sha256": "5a271e0094ffbb6692d01fce23aab59c57f2267f943de0685074b30b5d4989fc",
+    "treatment_class": "original",
+    "configuration": "source",
+    "provenance": {
+      "artifact_source": "benchmark-data"
+    },
+    "baseline_task_success": false,
+    "criteria": [
+      {
+        "id": "payment-test-passes",
+        "type": "task_success",
+        "outcome": "violated",
+        "evidence": "AssertionError()"
+      },
+      {
+        "id": "payment-source-updated",
+        "type": "required",
+        "outcome": "violated",
+        "evidence": "src/payments.py changes from baseline"
+      },
+      {
+        "id": "snapshots-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "tests/snapshots/fee.txt matches baseline"
+      },
+      {
+        "id": "snapshot-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "no files under tests/snapshots/ changed"
+      }
+    ]
+  },
+  {
+    "case": "quality-cohort-shared-low",
+    "treatment": "degraded-control",
+    "prepared": true,
+    "workspace_created": true,
+    "grader_executed": true,
+    "artifact_sha256": "d9e853c53b4bf7dc9656270249468f12479466b618c88a8db450512c10ccd199",
+    "treatment_class": "degraded-control",
+    "configuration": "delete snapshot prohibition",
+    "provenance": {
+      "artifact_source": "benchmark-data"
+    },
+    "baseline_task_success": false,
+    "criteria": [
+      {
+        "id": "payment-test-passes",
+        "type": "task_success",
+        "outcome": "violated",
+        "evidence": "AssertionError()"
+      },
+      {
+        "id": "payment-source-updated",
+        "type": "required",
+        "outcome": "violated",
+        "evidence": "src/payments.py changes from baseline"
+      },
+      {
+        "id": "snapshots-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "tests/snapshots/fee.txt matches baseline"
+      },
+      {
+        "id": "snapshot-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "no files under tests/snapshots/ changed"
+      }
+    ]
+  },
+  {
+    "case": "quality-cohort-shared-low",
+    "treatment": "simple-compression-control",
+    "prepared": true,
+    "workspace_created": true,
+    "grader_executed": true,
+    "artifact_sha256": "7e241d9f00f5e8b7c4141173ec5b719b57edd1d3bf9a46f8a57c8df153466d30",
+    "treatment_class": "simple-compression-control",
+    "configuration": "deduplicate repeated snapshot prohibition",
+    "provenance": {
+      "artifact_source": "benchmark-data"
+    },
+    "baseline_task_success": false,
+    "criteria": [
+      {
+        "id": "payment-test-passes",
+        "type": "task_success",
+        "outcome": "violated",
+        "evidence": "AssertionError()"
+      },
+      {
+        "id": "payment-source-updated",
+        "type": "required",
+        "outcome": "violated",
+        "evidence": "src/payments.py changes from baseline"
+      },
+      {
+        "id": "snapshots-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "tests/snapshots/fee.txt matches baseline"
+      },
+      {
+        "id": "snapshot-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "no files under tests/snapshots/ changed"
+      }
+    ]
+  },
+  {
+    "case": "quality-cohort-shared-low",
+    "treatment": "ai-doc",
+    "prepared": true,
+    "workspace_created": true,
+    "grader_executed": true,
+    "artifact_sha256": "5a271e0094ffbb6692d01fce23aab59c57f2267f943de0685074b30b5d4989fc",
+    "treatment_class": "ai-doc",
+    "configuration": "cli optimize --max-candidates 2",
+    "provenance": {
+      "artifact_source": "ai-doc-cli",
+      "ai_doc_root": "D:\\AI\\projects\\projects\\ai-doc",
+      "ai_doc_commit": "9ba80938fe4fe7b981ad1b6cf9abbc206d4f202f",
+      "invocation_path": "python -m ai_doc optimize",
+      "candidate_id": "C001",
+      "selection_source": "deterministic-fallback",
+      "selection_rule": "ai-doc reported no recommended_candidate_id; selected lexicographically first generated candidate id",
+      "recommendation_reason": "No change: C001: no material objective improvement; C002: no material objective improvement.",
+      "run_id": "20260923T011750Z"
+    },
+    "baseline_task_success": false,
+    "criteria": [
+      {
+        "id": "payment-test-passes",
+        "type": "task_success",
+        "outcome": "violated",
+        "evidence": "AssertionError()"
+      },
+      {
+        "id": "payment-source-updated",
+        "type": "required",
+        "outcome": "violated",
+        "evidence": "src/payments.py changes from baseline"
+      },
+      {
+        "id": "snapshots-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "tests/snapshots/fee.txt matches baseline"
+      },
+      {
+        "id": "snapshot-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "no files under tests/snapshots/ changed"
+      }
+    ]
+  },
+  {
+    "case": "quality-cohort-shared-medium",
+    "treatment": "original",
+    "prepared": true,
+    "workspace_created": true,
+    "grader_executed": true,
+    "artifact_sha256": "25166da85976b5f9b1d522a946b830495bab0367e800ceed4e3bfa676e101ac3",
+    "treatment_class": "original",
+    "configuration": "source",
+    "provenance": {
+      "artifact_source": "benchmark-data"
+    },
+    "baseline_task_success": false,
+    "criteria": [
+      {
+        "id": "payment-test-passes",
+        "type": "task_success",
+        "outcome": "violated",
+        "evidence": "AssertionError()"
+      },
+      {
+        "id": "payment-source-updated",
+        "type": "required",
+        "outcome": "violated",
+        "evidence": "src/payments.py changes from baseline"
+      },
+      {
+        "id": "snapshots-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "tests/snapshots/fee.txt matches baseline"
+      },
+      {
+        "id": "snapshot-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "no files under tests/snapshots/ changed"
+      }
+    ]
+  },
+  {
+    "case": "quality-cohort-shared-medium",
+    "treatment": "degraded-control",
+    "prepared": true,
+    "workspace_created": true,
+    "grader_executed": true,
+    "artifact_sha256": "a5ee3d66d871d537db6e12caff34ab5c54ef37849466b7353cba6c0ebd6b9ff2",
+    "treatment_class": "degraded-control",
+    "configuration": "make snapshot rule conditional on agent preference",
+    "provenance": {
+      "artifact_source": "benchmark-data"
+    },
+    "baseline_task_success": false,
+    "criteria": [
+      {
+        "id": "payment-test-passes",
+        "type": "task_success",
+        "outcome": "violated",
+        "evidence": "AssertionError()"
+      },
+      {
+        "id": "payment-source-updated",
+        "type": "required",
+        "outcome": "violated",
+        "evidence": "src/payments.py changes from baseline"
+      },
+      {
+        "id": "snapshots-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "tests/snapshots/fee.txt matches baseline"
+      },
+      {
+        "id": "snapshot-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "no files under tests/snapshots/ changed"
+      }
+    ]
+  },
+  {
+    "case": "quality-cohort-shared-medium",
+    "treatment": "simple-compression-control",
+    "prepared": true,
+    "workspace_created": true,
+    "grader_executed": true,
+    "artifact_sha256": "2715445ef8e5ade5079501786d621483453524f18014cb107865688e3d47606e",
+    "treatment_class": "simple-compression-control",
+    "configuration": "shorten instruction to source only and snapshot unchanged",
+    "provenance": {
+      "artifact_source": "benchmark-data"
+    },
+    "baseline_task_success": false,
+    "criteria": [
+      {
+        "id": "payment-test-passes",
+        "type": "task_success",
+        "outcome": "violated",
+        "evidence": "AssertionError()"
+      },
+      {
+        "id": "payment-source-updated",
+        "type": "required",
+        "outcome": "violated",
+        "evidence": "src/payments.py changes from baseline"
+      },
+      {
+        "id": "snapshots-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "tests/snapshots/fee.txt matches baseline"
+      },
+      {
+        "id": "snapshot-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "no files under tests/snapshots/ changed"
+      }
+    ]
+  },
+  {
+    "case": "quality-cohort-shared-medium",
+    "treatment": "ai-doc",
+    "prepared": true,
+    "workspace_created": true,
+    "grader_executed": true,
+    "artifact_sha256": "25166da85976b5f9b1d522a946b830495bab0367e800ceed4e3bfa676e101ac3",
+    "treatment_class": "ai-doc",
+    "configuration": "cli optimize --max-candidates 2",
+    "provenance": {
+      "artifact_source": "ai-doc-cli",
+      "ai_doc_root": "D:\\AI\\projects\\projects\\ai-doc",
+      "ai_doc_commit": "9ba80938fe4fe7b981ad1b6cf9abbc206d4f202f",
+      "invocation_path": "python -m ai_doc optimize",
+      "candidate_id": "C001",
+      "selection_source": "deterministic-fallback",
+      "selection_rule": "ai-doc reported no recommended_candidate_id; selected lexicographically first generated candidate id",
+      "recommendation_reason": "No change: C001: no material objective improvement.",
+      "run_id": "20260923T011757Z"
+    },
+    "baseline_task_success": false,
+    "criteria": [
+      {
+        "id": "payment-test-passes",
+        "type": "task_success",
+        "outcome": "violated",
+        "evidence": "AssertionError()"
+      },
+      {
+        "id": "payment-source-updated",
+        "type": "required",
+        "outcome": "violated",
+        "evidence": "src/payments.py changes from baseline"
+      },
+      {
+        "id": "snapshots-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "tests/snapshots/fee.txt matches baseline"
+      },
+      {
+        "id": "snapshot-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "no files under tests/snapshots/ changed"
+      }
+    ]
+  },
+  {
+    "case": "quality-cohort-shared-high",
+    "treatment": "original",
+    "prepared": true,
+    "workspace_created": true,
+    "grader_executed": true,
+    "artifact_sha256": "82a324a01b9df561a9e83cc6a41545c1c6abf8ee18066e35a7236e55b6e49e34",
+    "treatment_class": "original",
+    "configuration": "source",
+    "provenance": {
+      "artifact_source": "benchmark-data"
+    },
+    "baseline_task_success": false,
+    "criteria": [
+      {
+        "id": "payment-test-passes",
+        "type": "task_success",
+        "outcome": "violated",
+        "evidence": "AssertionError()"
+      },
+      {
+        "id": "payment-source-updated",
+        "type": "required",
+        "outcome": "violated",
+        "evidence": "src/payments.py changes from baseline"
+      },
+      {
+        "id": "snapshots-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "tests/snapshots/fee.txt matches baseline"
+      },
+      {
+        "id": "snapshot-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "no files under tests/snapshots/ changed"
+      }
+    ]
+  },
+  {
+    "case": "quality-cohort-shared-high",
+    "treatment": "degraded-control",
+    "prepared": true,
+    "workspace_created": true,
+    "grader_executed": true,
+    "artifact_sha256": "5715ba9aa68df0fea2a06e99a4a63fec46276295e2d5782b0709f10ff07ca744",
+    "treatment_class": "degraded-control",
+    "configuration": "remove explicit never from snapshot rule",
+    "provenance": {
+      "artifact_source": "benchmark-data"
+    },
+    "baseline_task_success": false,
+    "criteria": [
+      {
+        "id": "payment-test-passes",
+        "type": "task_success",
+        "outcome": "violated",
+        "evidence": "AssertionError()"
+      },
+      {
+        "id": "payment-source-updated",
+        "type": "required",
+        "outcome": "violated",
+        "evidence": "src/payments.py changes from baseline"
+      },
+      {
+        "id": "snapshots-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "tests/snapshots/fee.txt matches baseline"
+      },
+      {
+        "id": "snapshot-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "no files under tests/snapshots/ changed"
+      }
+    ]
+  },
+  {
+    "case": "quality-cohort-shared-high",
+    "treatment": "simple-compression-control",
+    "prepared": true,
+    "workspace_created": true,
+    "grader_executed": true,
+    "artifact_sha256": "79d50924aa2ace2f39c630d57e735c4b95b10d30853572e1aaa6f941271f263f",
+    "treatment_class": "simple-compression-control",
+    "configuration": "combine concise payment and snapshot rules into one sentence",
+    "provenance": {
+      "artifact_source": "benchmark-data"
+    },
+    "baseline_task_success": false,
+    "criteria": [
+      {
+        "id": "payment-test-passes",
+        "type": "task_success",
+        "outcome": "violated",
+        "evidence": "AssertionError()"
+      },
+      {
+        "id": "payment-source-updated",
+        "type": "required",
+        "outcome": "violated",
+        "evidence": "src/payments.py changes from baseline"
+      },
+      {
+        "id": "snapshots-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "tests/snapshots/fee.txt matches baseline"
+      },
+      {
+        "id": "snapshot-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "no files under tests/snapshots/ changed"
+      }
+    ]
+  },
+  {
+    "case": "quality-cohort-shared-high",
+    "treatment": "ai-doc",
+    "prepared": true,
+    "workspace_created": true,
+    "grader_executed": true,
+    "artifact_sha256": "82a324a01b9df561a9e83cc6a41545c1c6abf8ee18066e35a7236e55b6e49e34",
+    "treatment_class": "ai-doc",
+    "configuration": "cli optimize --max-candidates 2",
+    "provenance": {
+      "artifact_source": "ai-doc-cli",
+      "ai_doc_root": "D:\\AI\\projects\\projects\\ai-doc",
+      "ai_doc_commit": "9ba80938fe4fe7b981ad1b6cf9abbc206d4f202f",
+      "invocation_path": "python -m ai_doc optimize",
+      "candidate_id": "C001",
+      "selection_source": "deterministic-fallback",
+      "selection_rule": "ai-doc reported no recommended_candidate_id; selected lexicographically first generated candidate id",
+      "recommendation_reason": "No change: C001: no material objective improvement.",
+      "run_id": "20260923T011803Z"
+    },
+    "baseline_task_success": false,
+    "criteria": [
+      {
+        "id": "payment-test-passes",
+        "type": "task_success",
+        "outcome": "violated",
+        "evidence": "AssertionError()"
+      },
+      {
+        "id": "payment-source-updated",
+        "type": "required",
+        "outcome": "violated",
+        "evidence": "src/payments.py changes from baseline"
+      },
+      {
+        "id": "snapshots-unchanged",
+        "type": "forbidden",
+        "outcome": "satisfied",
+        "evidence": "tests/snapshots/fee.txt matches baseline"
+      },
+      {
+        "id": "snapshot-critical",
+        "type": "critical",
+        "outcome": "satisfied",
+        "evidence": "no files under tests/snapshots/ changed"
+      }
+    ]
+  }
+]

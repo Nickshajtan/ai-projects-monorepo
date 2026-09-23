@@ -1,0 +1,19 @@
+{
+  "command": [
+    "C:\\Users\\38098\\.local\\bin\\claude.exe",
+    "--print",
+    "--output-format",
+    "json",
+    "--model",
+    "sonnet",
+    "--permission-mode",
+    "bypassPermissions",
+    "Implement task.md"
+  ],
+  "cwd": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-discriminative-20260923\\c2-scan\\workspaces\\pilot-discriminative-c2-claude-quality-cohort-shared-medium-simple-compression-control-r1-y6v8m46r",
+  "exit_code": 0,
+  "termination_status": "completed",
+  "timeout": false,
+  "duration_seconds": 61.972964000015054,
+  "target_started": true
+}

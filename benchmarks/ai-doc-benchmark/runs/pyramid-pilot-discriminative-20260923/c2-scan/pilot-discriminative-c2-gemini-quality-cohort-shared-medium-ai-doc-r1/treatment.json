@@ -1,0 +1,17 @@
+{
+  "class": "ai-doc",
+  "configuration": "cli optimize --max-candidates 2",
+  "resulting_corpus": "sic-shared-payment-medium:ai-doc",
+  "artifact_sha256": "25166da85976b5f9b1d522a946b830495bab0367e800ceed4e3bfa676e101ac3",
+  "provenance": {
+    "artifact_source": "ai-doc-cli",
+    "ai_doc_root": "D:\\AI\\projects\\projects\\ai-doc",
+    "ai_doc_commit": "9ba80938fe4fe7b981ad1b6cf9abbc206d4f202f",
+    "invocation_path": "python -m ai_doc optimize",
+    "candidate_id": "C001",
+    "selection_source": "deterministic-fallback",
+    "selection_rule": "ai-doc reported no recommended_candidate_id; selected lexicographically first generated candidate id",
+    "recommendation_reason": "No change: C001: no material objective improvement.",
+    "run_id": "20260923T014225Z"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "class": "simple-compression-control",
+  "configuration": "shorten instruction to source only and snapshot unchanged",
+  "resulting_corpus": "sic-shared-payment-medium:simple-compression-control",
+  "artifact_sha256": "2715445ef8e5ade5079501786d621483453524f18014cb107865688e3d47606e",
+  "provenance": {
+    "artifact_source": "benchmark-data"
+  }
+}

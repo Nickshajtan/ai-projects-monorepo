@@ -1,0 +1,9 @@
+{
+  "class": "original",
+  "configuration": "source",
+  "resulting_corpus": "sic-shared-payment-medium:original",
+  "artifact_sha256": "25166da85976b5f9b1d522a946b830495bab0367e800ceed4e3bfa676e101ac3",
+  "provenance": {
+    "artifact_source": "benchmark-data"
+  }
+}

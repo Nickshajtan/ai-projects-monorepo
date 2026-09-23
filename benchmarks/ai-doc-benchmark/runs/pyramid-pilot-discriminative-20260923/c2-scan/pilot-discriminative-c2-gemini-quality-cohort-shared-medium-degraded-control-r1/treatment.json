@@ -1,0 +1,9 @@
+{
+  "class": "degraded-control",
+  "configuration": "make snapshot rule conditional on agent preference",
+  "resulting_corpus": "sic-shared-payment-medium:degraded-control",
+  "artifact_sha256": "a5ee3d66d871d537db6e12caff34ab5c54ef37849466b7353cba6c0ebd6b9ff2",
+  "provenance": {
+    "artifact_source": "benchmark-data"
+  }
+}

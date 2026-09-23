@@ -1,0 +1,12 @@
+﻿{
+    "executable":  "C:\\nvm4w\\nodejs\\codex.ps1",
+    "version":  "codex-cli 0.155.1",
+    "model":  "gpt-5",
+    "command":  "codex exec --model gpt-5 --approve-for-me --skip-git-repo-check \"Implement task.md\"",
+    "cwd":  "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-discriminative-20260923\\codex-qualification-workspace-2",
+    "exit_code":  1,
+    "runtime_seconds":  16.59,
+    "output_exists":  false,
+    "output_text":  null,
+    "status":  "TARGET_UNQUALIFIED"
+}

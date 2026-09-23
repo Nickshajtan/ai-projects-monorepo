@@ -1,0 +1,11 @@
+diff --git a/src/payments.py b/src/payments.py
+index 3b4e1f2..2a14b5e 100644
+--- a/src/payments.py
++++ b/src/payments.py
+@@ -1,2 +1,5 @@
++FEE_RATE = 0.03
++
++
+ def fee(amount):
+-    return 0
++    return round(amount * FEE_RATE)

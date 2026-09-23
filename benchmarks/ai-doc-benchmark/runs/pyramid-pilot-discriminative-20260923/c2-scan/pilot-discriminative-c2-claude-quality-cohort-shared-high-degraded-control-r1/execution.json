@@ -1,0 +1,19 @@
+{
+  "command": [
+    "C:\\Users\\38098\\.local\\bin\\claude.exe",
+    "--print",
+    "--output-format",
+    "json",
+    "--model",
+    "sonnet",
+    "--permission-mode",
+    "bypassPermissions",
+    "Implement task.md"
+  ],
+  "cwd": "D:\\AI\\projects\\benchmarks\\ai-doc-benchmark\\runs\\pyramid-pilot-discriminative-20260923\\c2-scan\\workspaces\\pilot-discriminative-c2-claude-quality-cohort-shared-high-degraded-control-r1-w0sg_lnb",
+  "exit_code": 0,
+  "termination_status": "completed",
+  "timeout": false,
+  "duration_seconds": 60.50370040000416,
+  "target_started": true
+}

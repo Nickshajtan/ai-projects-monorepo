@@ -1,0 +1,9 @@
+{
+  "class": "degraded-control",
+  "configuration": "delete snapshot prohibition",
+  "resulting_corpus": "sic-shared-payment-low:degraded-control",
+  "artifact_sha256": "d9e853c53b4bf7dc9656270249468f12479466b618c88a8db450512c10ccd199",
+  "provenance": {
+    "artifact_source": "benchmark-data"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "class": "degraded-control",
+  "configuration": "remove explicit never from snapshot rule",
+  "resulting_corpus": "sic-shared-payment-high:degraded-control",
+  "artifact_sha256": "5715ba9aa68df0fea2a06e99a4a63fec46276295e2d5782b0709f10ff07ca744",
+  "provenance": {
+    "artifact_source": "benchmark-data"
+  }
+}
